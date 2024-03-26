@@ -17,8 +17,8 @@ public class MainWindow {
 
     JFrame mainWindowFrame = new JFrame("My Contact List");
 
-    public static int initialFrameWidth = 800;
-    static int initialFrameHeight = 600;
+    public static int initialFrameWidth = 1280;
+    static int initialFrameHeight = 720;
     static Dimension initialAppSize = new Dimension(initialFrameWidth, initialFrameHeight);
 
     Color bgDark, bgLight, fgDark, fgLight;
