@@ -1,14 +1,12 @@
 package contactcard;
 
-import javax.imageio.ImageIO;
 import javax.swing.*;
+import javax.swing.border.Border;
 import java.awt.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.awt.event.FocusEvent;
 import java.awt.event.FocusListener;
-import java.io.File;
-import java.io.IOException;
 
 import contactcard.contactcardbuttons.*;
 import mainwindow.MainWindow;
@@ -26,9 +24,12 @@ public class ContactCardFull extends ContactCardBase {
     JFrame contactCardFullFrame = new JFrame("Temp ContactCardFull");
     JScrollPane contactCardFullJScrollPane = new JScrollPane();
     JPanel contactCardFullNorthJPanel = new JPanel();
-    JPanel contactCardFullCenterJPanel = new JPanel();
+    JPanel contactCardFullCenterTitleJPanel = new JPanel();
     JPanel profilePictureJPanel = new JPanel();
     JPanel contactCardTitleTextJPanel = new JPanel();
+    JPanel contactCardButtonsJPanel = new JPanel();
+    JPanel contactCardTitleJPanel = new JPanel();
+    JPanel addEmailAddressJPanel = new JPanel();
     Dimension contactCardFullNorthJPanelDimension = new Dimension(600, 175);
 
     JTextField firstNameJTextField, middleNameJTextField, lastNameJTextField;
@@ -42,13 +43,12 @@ public class ContactCardFull extends ContactCardBase {
     JLabel eMailJLabel;
     JLabel commentsJLabel;
     JButton profilePictureJButton, editProfilePictureJButton, deleteProfilePictureJButton;
+    JButton addPhoneNumberJButton, addEmailAddressJButton;
 
-    String comments, birthDate;
-
-    CloseCard closeCard = new CloseCard();
     SaveChanges saveChanges = new SaveChanges();
-    DeleteProfilePicture deleteProfilePicture = new DeleteProfilePicture();
     DeleteCard deleteCard = new DeleteCard();
+    CloseCard closeCard = new CloseCard();
+    DeleteProfilePicture deleteProfilePicture = new DeleteProfilePicture();
     EditProfilePicture editProfilePicture = new EditProfilePicture();
 
 
@@ -59,6 +59,8 @@ public class ContactCardFull extends ContactCardBase {
         createTempFrame();
         configureProfilePictureJPanel();
         configureContactCardTitleTextJPanel();
+        configureContactCardButtons();
+        configureContactCardTitleJPanel();
         configureNorthJPanel();
         configureCenterJPanel();
         addToScrollPane();
@@ -148,6 +150,31 @@ public class ContactCardFull extends ContactCardBase {
         deleteProfilePictureJButton.setPreferredSize(new Dimension(50, 25));
         deleteProfilePictureJButton.setFont(new Font("Dialog", Font.BOLD, 9));
         deleteProfilePictureJButton.setMargin(insetsZero);
+
+        saveChanges.setText("Save Changes");
+        saveChanges.setPreferredSize(new Dimension(150, 50));
+        saveChanges.setFont(new Font("Dialog", Font.BOLD, 9));
+        saveChanges.setMargin(insetsZero);
+
+        deleteCard.setText("Delete Contact");
+        deleteCard.setPreferredSize(new Dimension(150, 50));
+        deleteCard.setFont(new Font("Dialog", Font.BOLD, 9));
+        deleteCard.setMargin(insetsZero);
+
+        closeCard.setText("Close Card");
+        closeCard.setPreferredSize(new Dimension(150, 50));
+        closeCard.setFont(new Font("Dialog", Font.BOLD, 9));
+        closeCard.setMargin(insetsZero);
+
+        addPhoneNumberJButton = new JButton("+");
+        addPhoneNumberJButton.setPreferredSize((new Dimension(phoneNumberJTextField.getHeight(), phoneNumberJTextField.getHeight())));
+        addPhoneNumberJButton.setFont(new Font("Dialog", Font.BOLD, 12));
+        addPhoneNumberJButton.setMargin(insetsZero);
+
+        addEmailAddressJButton = new JButton("+");
+        addEmailAddressJButton.setPreferredSize((new Dimension(eMailJTextField.getHeight(), eMailJTextField.getHeight())));
+        addEmailAddressJButton.setFont(new Font("Dialog", Font.BOLD, 12));
+        addEmailAddressJButton.setMargin(insetsZero);
     }
 
 
@@ -158,6 +185,24 @@ public class ContactCardFull extends ContactCardBase {
         contactCardFullFrame.setIconImage(MainWindow.setIconImage());
         contactCardFullFrame.setLayout(new BorderLayout());
         contactCardFullFrame.getContentPane().setBackground(bgDark);
+    }
+
+
+    // Configure add eMail JPanel
+    public void configureAddEmailJPanel() {
+        addEmailAddressJPanel.setLayout(new GridBagLayout());
+        addEmailAddressJPanel.setSize(phoneNumberJTextField.getSize());
+        addEmailAddressJPanel.setBackground(bgDark);
+
+        gbc.insets = insetsZero;
+        gbc.fill = GridBagConstraints.BOTH;
+        gbc.anchor = GridBagConstraints.LINE_START;
+
+        gbc.weightx = 0;
+        gbc.weighty = 0;
+        gbc.gridx = 0;
+        gbc.gridy = 0;
+        addEmailAddressJPanel.add(eMailJTextField, gbc);
     }
 
 
@@ -190,8 +235,8 @@ public class ContactCardFull extends ContactCardBase {
     // Configure ContactCard Title Text JPanel
     public void configureContactCardTitleTextJPanel() {
         contactCardTitleTextJPanel.setLayout(new GridBagLayout());
-        contactCardTitleTextJPanel.setBackground(ColorPalette.bgLight);
-        contactCardTitleTextJPanel.setPreferredSize(new Dimension(500, 165));
+        contactCardTitleTextJPanel.setBackground(bgLight);
+        contactCardTitleTextJPanel.setPreferredSize(new Dimension(500, 115));
 
         gbc.insets = insetsNorthJPanel;
         gbc.fill = GridBagConstraints.BOTH;
@@ -206,7 +251,29 @@ public class ContactCardFull extends ContactCardBase {
 
         gbc.gridy = 1;
         contactCardTitleTextJPanel.add(eMailPhoneNumberTitleJLabel, gbc);
+    }
 
+
+    // Configure ContactCard Buttons
+    public void configureContactCardButtons() {
+        contactCardButtonsJPanel.setLayout(new BorderLayout());
+        contactCardButtonsJPanel.setPreferredSize(new Dimension(500, 50));
+        contactCardButtonsJPanel.setBackground(bgLight);
+
+        contactCardButtonsJPanel.add(saveChanges, BorderLayout.WEST);
+        contactCardButtonsJPanel.add(deleteCard, BorderLayout.CENTER);
+        contactCardButtonsJPanel.add(closeCard, BorderLayout.EAST);
+    }
+
+
+    // Configure ContactCard Title JPanel
+    public void configureContactCardTitleJPanel() {
+        contactCardTitleJPanel.setLayout(new BorderLayout());
+        contactCardTitleJPanel.setPreferredSize(new Dimension(500, 165));
+        contactCardTitleJPanel.setBackground(bgLight);
+
+        contactCardTitleJPanel.add(contactCardTitleTextJPanel, BorderLayout.NORTH);
+        contactCardTitleJPanel.add(contactCardButtonsJPanel, BorderLayout.CENTER);
     }
 
     // Configure North JPanel
@@ -214,18 +281,17 @@ public class ContactCardFull extends ContactCardBase {
         contactCardFullNorthJPanel.setBorder(BorderFactory.createEmptyBorder(5,5,5,5));
         contactCardFullNorthJPanel.setLayout(new BorderLayout());
         contactCardFullNorthJPanel.setPreferredSize(contactCardFullNorthJPanelDimension);
-        contactCardFullNorthJPanel.setBackground(ColorPalette.bgLight);
+        contactCardFullNorthJPanel.setBackground(bgLight);
 
         contactCardFullNorthJPanel.add(profilePictureJPanel, BorderLayout.WEST);
-        contactCardFullNorthJPanel.add(contactCardTitleTextJPanel, BorderLayout.CENTER);
-
+        contactCardFullNorthJPanel.add(contactCardTitleJPanel, BorderLayout.CENTER);
     }
 
 
     // Configure Center JPanel
     public void configureCenterJPanel() {
-        contactCardFullCenterJPanel.setLayout(new GridBagLayout());
-        contactCardFullCenterJPanel.setBackground(ColorPalette.bgDark);
+        contactCardFullCenterTitleJPanel.setLayout(new GridBagLayout());
+        contactCardFullCenterTitleJPanel.setBackground(ColorPalette.bgDark);
 
         // Labels
         gbc.insets = insetsJLabel;
@@ -238,69 +304,86 @@ public class ContactCardFull extends ContactCardBase {
         gbc.gridx = 0;
 
         gbc.gridy = 0;
-        contactCardFullCenterJPanel.add(firstNameJLabel, gbc);
+        contactCardFullCenterTitleJPanel.add(firstNameJLabel, gbc);
 
         gbc.gridy = 1;
-        contactCardFullCenterJPanel.add(middleNameJLabel, gbc);
+        contactCardFullCenterTitleJPanel.add(middleNameJLabel, gbc);
 
         gbc.gridy = 2;
-        contactCardFullCenterJPanel.add(lastNameJLabel, gbc);
+        contactCardFullCenterTitleJPanel.add(lastNameJLabel, gbc);
 
         gbc.gridy = 3;
-        contactCardFullCenterJPanel.add(eMailJLabel, gbc);
+        contactCardFullCenterTitleJPanel.add(eMailJLabel, gbc);
 
         gbc.gridy = 4;
-        contactCardFullCenterJPanel.add(countryCodeJLabel, gbc);
+        contactCardFullCenterTitleJPanel.add(countryCodeJLabel, gbc);
 
         gbc.gridy = 5;
-        contactCardFullCenterJPanel.add(phoneNumberJLabel, gbc);
+        contactCardFullCenterTitleJPanel.add(phoneNumberJLabel, gbc);
 
         gbc.gridy = 6;
-        contactCardFullCenterJPanel.add(birthDateJLabel, gbc);
+        contactCardFullCenterTitleJPanel.add(birthDateJLabel, gbc);
 
         gbc.gridy = 7;
-        contactCardFullCenterJPanel.add(commentsJLabel, gbc);
+        contactCardFullCenterTitleJPanel.add(commentsJLabel, gbc);
 
 
         // Entry fields
         gbc.insets = insetsJTextField;
         gbc.fill = GridBagConstraints.BOTH;
         gbc.anchor = GridBagConstraints.LINE_START;
-        gbc.weightx = 1;
+        gbc.weightx = 14;
         gbc.gridx = 1;
 
+        gbc.gridwidth = 2;
         gbc.gridy = 0;
-        contactCardFullCenterJPanel.add(firstNameJTextField, gbc);
+        contactCardFullCenterTitleJPanel.add(firstNameJTextField, gbc);
 
         gbc.gridy = 1;
-        contactCardFullCenterJPanel.add(middleNameJTextField, gbc);
+        contactCardFullCenterTitleJPanel.add(middleNameJTextField, gbc);
 
         gbc.gridy = 2;
-        contactCardFullCenterJPanel.add(lastNameJTextField, gbc);
+        contactCardFullCenterTitleJPanel.add(lastNameJTextField, gbc);
 
+        gbc.gridwidth = 1;
         gbc.gridy = 3;
-        contactCardFullCenterJPanel.add(eMailJTextField, gbc);
+        contactCardFullCenterTitleJPanel.add(addEmailAddressJPanel, gbc);
 
+        gbc.gridwidth = 2;
         gbc.gridy = 4;
-        contactCardFullCenterJPanel.add(countryCodeJTextField, gbc);
+        contactCardFullCenterTitleJPanel.add(countryCodeJTextField, gbc);
 
+        gbc.gridwidth = 1;
         gbc.gridy = 5;
-        contactCardFullCenterJPanel.add(phoneNumberJTextField, gbc);
+        contactCardFullCenterTitleJPanel.add(phoneNumberJTextField, gbc);
 
+        gbc.gridwidth = 2;
         gbc.gridy = 6;
-        contactCardFullCenterJPanel.add(birthDateJTextField, gbc);
+        contactCardFullCenterTitleJPanel.add(birthDateJTextField, gbc);
 
         gbc.gridy = 7;
-        contactCardFullCenterJPanel.add(commentsJTextArea, gbc);
+        contactCardFullCenterTitleJPanel.add(commentsJTextArea, gbc);
+
+        // Additional Entry Buttons
+        gbc.weightx = 1;
+        gbc.gridwidth = 1;
+        gbc.gridx = 2;
+
+        gbc.gridy = 3;
+        contactCardFullCenterTitleJPanel.add(addEmailAddressJButton, gbc);
+
+        gbc.gridy = 5;
+        contactCardFullCenterTitleJPanel.add(addPhoneNumberJButton, gbc);
+
     }
 
 
     // Configure contactCardFull JScrollPane
     public void addToScrollPane() {
-        contactCardFullJScrollPane.setPreferredSize(new Dimension(contactCardFullCenterJPanel.getWidth(), contactCardFullCenterJPanel.getHeight()));
+        contactCardFullJScrollPane.setPreferredSize(new Dimension(contactCardFullCenterTitleJPanel.getWidth(), contactCardFullCenterTitleJPanel.getHeight()));
         contactCardFullJScrollPane.setBackground(ColorPalette.bgDark);
         contactCardFullJScrollPane.setHorizontalScrollBarPolicy(ScrollPaneConstants.HORIZONTAL_SCROLLBAR_NEVER);
-        contactCardFullJScrollPane.setViewportView(contactCardFullCenterJPanel);
+        contactCardFullJScrollPane.setViewportView(contactCardFullCenterTitleJPanel);
     }
 
 
@@ -400,7 +483,11 @@ public class ContactCardFull extends ContactCardBase {
                     eMailJTextField.setText("Email Address");
                 } else {
                     eMail = eMailJTextField.getText();
-                    eMailPhoneNumberTitleJLabel.setText(eMail + "     " + "+ " + countryCode + " " + phoneNumber);
+                    if (!(countryCodeJTextField.getText().equalsIgnoreCase("Country Code"))) {
+                        eMailPhoneNumberTitleJLabel.setText(eMail + "     " + "+ " + countryCode + " " + phoneNumber);
+                    } else {
+                        eMailPhoneNumberTitleJLabel.setText(eMail + "     " + phoneNumber);
+                    }
                     resizeJLabelText(eMailPhoneNumberTitleJLabel);
                 }
             }
@@ -423,7 +510,11 @@ public class ContactCardFull extends ContactCardBase {
                     countryCodeJTextField.setText("Country Code");
                 } else {
                     countryCode = countryCodeJTextField.getText();
-                    eMailPhoneNumberTitleJLabel.setText(eMail + "     " + "+ " + countryCode + " " + phoneNumber);
+                    if (!(countryCodeJTextField.getText().equalsIgnoreCase("Country Code"))) {
+                        eMailPhoneNumberTitleJLabel.setText(eMail + "     " + "+ " + countryCode + " " + phoneNumber);
+                    } else {
+                        eMailPhoneNumberTitleJLabel.setText(eMail + "     " + phoneNumber);
+                    }
                     resizeJLabelText(eMailPhoneNumberTitleJLabel);
                 }
             }
@@ -446,7 +537,11 @@ public class ContactCardFull extends ContactCardBase {
                     phoneNumberJTextField.setText("Phone Number");
                 } else {
                     phoneNumber = phoneNumberJTextField.getText();
-                    eMailPhoneNumberTitleJLabel.setText(eMail + "     " + "+ " + countryCode + " " + phoneNumber);
+                    if (!(countryCodeJTextField.getText().equalsIgnoreCase("Country Code"))) {
+                        eMailPhoneNumberTitleJLabel.setText(eMail + "     " + "+ " + countryCode + " " + phoneNumber);
+                    } else {
+                        eMailPhoneNumberTitleJLabel.setText(eMail + "     " + phoneNumber);
+                    }
                     resizeJLabelText(eMailPhoneNumberTitleJLabel);
                 }
             }
@@ -492,12 +587,63 @@ public class ContactCardFull extends ContactCardBase {
     }
 
 
-    // Add EventListeners
+    // Add ActionListeners
     public void addActionListeners() {
         editProfilePictureJButton.addActionListener(new ActionListener() {
             public void actionPerformed(ActionEvent e) {
-                    profilePicture = new ImageIcon(String.valueOf(EditProfilePicture.editProfilePicture()));
-                    profilePictureJButton.setIcon(profilePicture);
+                profilePicture = new ImageIcon(String.valueOf(EditProfilePicture.editProfilePicture()));
+                Image oldImageSize = profilePicture.getImage();
+
+                // Check if picture ratio is wider, less wide or the same as frame
+                if ((profilePicture.getIconWidth() / 100) > (profilePicture.getIconHeight() / 165)) {
+                    Image newImageSize = oldImageSize.getScaledInstance(profilePictureJButton.getWidth(), ((int) ((profilePicture.getIconHeight()) / (profilePicture.getIconWidth() / profilePictureJButton.getWidth()))), Image.SCALE_SMOOTH);
+                    profilePicture = new ImageIcon(newImageSize);
+                } else if ((profilePicture.getIconWidth() / 100) < (profilePicture.getIconHeight() / 165)) {
+                    Image newImageSize = oldImageSize.getScaledInstance(((int) ((profilePicture.getIconWidth()) / (profilePicture.getIconHeight() / profilePictureJButton.getHeight()))), profilePictureJButton.getHeight(), Image.SCALE_SMOOTH);
+                    profilePicture = new ImageIcon(newImageSize);
+                } else {
+                    Image newImageSize = oldImageSize.getScaledInstance(profilePictureJButton.getWidth(), profilePictureJButton.getHeight(), Image.SCALE_SMOOTH);
+                    profilePicture = new ImageIcon(newImageSize);
+                }
+
+                profilePictureJButton.setIcon(profilePicture);
+            }
+        });
+
+        deleteProfilePictureJButton.addActionListener(new ActionListener() {
+            public void actionPerformed(ActionEvent e) {
+                profilePicture = new ImageIcon("src/main/java/resources/DefaultPfp.png");
+                profilePictureJButton.setIcon(profilePicture);
+            }
+        });
+
+        saveChanges.addActionListener(new ActionListener() {
+            public void actionPerformed(ActionEvent e) {
+
+            }
+        });
+
+        deleteCard.addActionListener(new ActionListener() {
+            public void actionPerformed(ActionEvent e) {
+
+            }
+        });
+
+        closeCard.addActionListener(new ActionListener() {
+            public void actionPerformed(ActionEvent e) {
+
+            }
+        });
+
+        addEmailAddressJButton.addActionListener(new ActionListener() {
+            public void actionPerformed(ActionEvent e) {
+
+            }
+        });
+
+        addPhoneNumberJButton.addActionListener(new ActionListener() {
+            public void actionPerformed(ActionEvent e) {
+
             }
         });
     }

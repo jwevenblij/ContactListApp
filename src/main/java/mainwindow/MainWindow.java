@@ -2,7 +2,7 @@ package mainwindow;
 
 import tools.ColorPalette;
 import bottombar.BottomBar;
-import contactlist.ContactList;
+import contactcard.ContactList;
 
 import javax.imageio.ImageIO;
 import javax.swing.*;
@@ -15,10 +15,10 @@ public class MainWindow {
     ContactList contactList = new ContactList();
     BottomBar bottomBar = new BottomBar();
 
-    JFrame mainWindowFrame = new JFrame("My Contact List");
+    static JFrame mainWindowFrame = new JFrame("My Contact List");
 
     public static int initialFrameWidth = 1280;
-    static int initialFrameHeight = 720;
+    public static int initialFrameHeight = 720;
     static Dimension initialAppSize = new Dimension(initialFrameWidth, initialFrameHeight);
 
     Color bgDark, bgLight, fgDark, fgLight;
@@ -31,21 +31,25 @@ public class MainWindow {
         fgLight = ColorPalette.fgLight;
 
         // Configure main window
+        mainWindowFrame.setLayout(new BorderLayout());
         mainWindowFrame.setDefaultCloseOperation(WindowConstants.EXIT_ON_CLOSE);
         mainWindowFrame.setPreferredSize(initialAppSize);
-        mainWindowFrame.setResizable(true);
+        mainWindowFrame.setResizable(false);
         mainWindowFrame.setIconImage(setIconImage());
-        mainWindowFrame.setLayout(new BorderLayout());
         mainWindowFrame.getContentPane().setBackground(bgDark);
 
         // Add panels to main window
-        mainWindowFrame.add(ContactList.contactListJScrollPane, BorderLayout.NORTH);
-        mainWindowFrame.add(BottomBar.bottomBarPanel, BorderLayout.SOUTH);
+        mainWindowFrame.add(ContactList.contactListJScrollPane, BorderLayout.CENTER);
+        mainWindowFrame.add(BottomBar.bottomBarJPanel, BorderLayout.SOUTH);
 
         // Finalize main window
+        packAndSetVisible();
+    }
+
+    // Pack and setVisible main window
+    public static void packAndSetVisible() {
         mainWindowFrame.pack();
         mainWindowFrame.setVisible(true);
-
     }
 
     // Set main window icon
@@ -54,12 +58,12 @@ public class MainWindow {
         Image iconImage = null;
 
         try {
-            File pathToIconFile = new File("src/resources/Icon256.png");
+            File pathToIconFile = new File("src/main/java/resources/Icon256.png");
             iconImage = ImageIO.read(pathToIconFile);
         } catch (IOException exception) {
             exception.printStackTrace();
         }
-        
+
         return iconImage;
     }
 

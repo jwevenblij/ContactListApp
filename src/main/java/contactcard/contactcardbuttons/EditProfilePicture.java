@@ -1,8 +1,5 @@
 package contactcard.contactcardbuttons;
 
-import contactcard.ContactCardFull;
-import contactlist.ContactList;
-
 import javax.swing.*;
 import javax.swing.filechooser.FileNameExtensionFilter;
 import java.io.File;
