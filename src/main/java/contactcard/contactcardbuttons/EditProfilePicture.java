@@ -1,5 +1,7 @@
 package contactcard.contactcardbuttons;
 
+import contactcard.ContactCardBase;
+
 import javax.swing.*;
 import javax.swing.filechooser.FileNameExtensionFilter;
 import java.io.File;
@@ -20,6 +22,7 @@ public class EditProfilePicture extends JButton {
 
         if (returnVal == JFileChooser.APPROVE_OPTION) {
             File selectedFile = fileChooser.getSelectedFile();
+            ContactCardBase.setProfilePictureFilePath(String.valueOf(EditProfilePicture.editProfilePicture()));
             return selectedFile;
         } else {
             JOptionPane.showMessageDialog(null, "Selected file format is not JPG or PNG", "Incorrect file format", JOptionPane.ERROR_MESSAGE);

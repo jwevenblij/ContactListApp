@@ -10,13 +10,13 @@ import java.io.IOException;
 public class ContactCardBase {
     Color bgDark, bgLight, fgDark, fgLight;
 
-    String firstName, middleName, lastName;
-    String eMail;
-    String countryCode;
-    String phoneNumber;
-    String birthDate;
-    String comments;
-    String profilePictureFilePath;
+    static String firstName, middleName, lastName;
+    static String eMail;
+    static String countryCode;
+    static String phoneNumber;
+    static String birthDate;
+    static String comments;
+    static String profilePictureFilePath;
 
     JLabel nameTitleJLabel;
     JLabel eMailPhoneNumberTitleJLabel;
@@ -39,7 +39,7 @@ public class ContactCardBase {
     }
 
 
-    public String getFirstName() {
+    public static String getFirstName() {
         return firstName;
     }
 
@@ -49,7 +49,7 @@ public class ContactCardBase {
     }
 
 
-    public String getMiddleName() {
+    public static String getMiddleName() {
         return middleName;
     }
 
@@ -59,7 +59,7 @@ public class ContactCardBase {
     }
 
 
-    public String getLastName() {
+    public static String getLastName() {
         return lastName;
     }
 
@@ -69,7 +69,7 @@ public class ContactCardBase {
     }
 
 
-    public String geteMail() {
+    public static String geteMail() {
         return eMail;
     }
 
@@ -79,7 +79,7 @@ public class ContactCardBase {
     }
 
 
-    public String getCountryCode() {
+    public static String getCountryCode() {
         return countryCode;
     }
 
@@ -89,7 +89,7 @@ public class ContactCardBase {
     }
 
 
-    public String getPhoneNumber() {
+    public static String getPhoneNumber() {
         return phoneNumber;
     }
 
@@ -99,7 +99,7 @@ public class ContactCardBase {
     }
 
 
-    public String getBirthDate() {
+    public static String getBirthDate() {
         return birthDate;
     }
 
@@ -109,23 +109,23 @@ public class ContactCardBase {
     }
 
 
-    public String getComments() {
+    public static String getComments() {
         return comments;
     }
 
 
     public void setComments(String comments) {
-        this.comments = comments;
+        ContactCardBase.comments = comments;
     }
 
 
-    public String getProfilePictureFilePath() {
+    public static String getProfilePictureFilePath() {
         return profilePictureFilePath;
     }
 
 
-    public void setProfilePictureFilePath(String profilePictureFilePath) {
-        this.profilePictureFilePath = profilePictureFilePath;
+    public static void setProfilePictureFilePath(String profilePictureFilePath) {
+        ContactCardBase.profilePictureFilePath = profilePictureFilePath;
     }
 
 

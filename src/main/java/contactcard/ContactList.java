@@ -43,7 +43,7 @@ public class ContactList {
         }
 
         for (File allContactsListItem : allContactsList) {
-            JButton contactListEntryJButton = new JButton("kaas");
+            JButton contactListEntryJButton = new JButton("Potato");
             contactListEntryJButton.setPreferredSize(new Dimension(615, 175));
             contactListJPanel.add(contactListEntryJButton);
             if (addHeightOnOff) {

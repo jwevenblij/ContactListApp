@@ -347,7 +347,7 @@ public class ContactCardFull extends ContactCardBase {
 
         gbc.gridwidth = 1;
         gbc.gridy = 3;
-        contactCardFullCenterTitleJPanel.add(addEmailAddressJPanel, gbc);
+        contactCardFullCenterTitleJPanel.add(eMailJTextField, gbc);
 
         gbc.gridwidth = 2;
         gbc.gridy = 4;
@@ -412,11 +412,12 @@ public class ContactCardFull extends ContactCardBase {
                 if (firstNameJTextField.getText().trim().isEmpty()) {
                     firstNameJTextField.setForeground(Color.GRAY);
                     firstNameJTextField.setText("First Name");
+                    firstName = "";
                 } else {
                     firstName = firstNameJTextField.getText();
-                    nameTitleJLabel.setText(firstName + " " + middleName + " " + lastName);
-                    resizeJLabelText(nameTitleJLabel);
                 }
+                nameTitleJLabel.setText(firstName + " " + middleName + " " + lastName);
+                resizeJLabelText(nameTitleJLabel);
             }
         });
 
@@ -435,11 +436,12 @@ public class ContactCardFull extends ContactCardBase {
                 if (middleNameJTextField.getText().trim().isEmpty()) {
                     middleNameJTextField.setForeground(Color.GRAY);
                     middleNameJTextField.setText("Middle Name");
+                    middleName = "";
                 } else {
                     middleName = middleNameJTextField.getText();
-                    nameTitleJLabel.setText(firstName + " " + middleName + " " + lastName);
-                    resizeJLabelText(nameTitleJLabel);
                 }
+                nameTitleJLabel.setText(firstName + " " + middleName + " " + lastName);
+                resizeJLabelText(nameTitleJLabel);
             }
         });
 
@@ -458,11 +460,12 @@ public class ContactCardFull extends ContactCardBase {
                 if (lastNameJTextField.getText().trim().isEmpty()) {
                     lastNameJTextField.setForeground(Color.GRAY);
                     lastNameJTextField.setText("Last Name");
+                    lastName = "";
                 } else {
                     lastName = lastNameJTextField.getText();
-                    nameTitleJLabel.setText(firstName + " " + middleName + " " + lastName);
-                    resizeJLabelText(nameTitleJLabel);
                 }
+                nameTitleJLabel.setText(firstName + " " + middleName + " " + lastName);
+                resizeJLabelText(nameTitleJLabel);
             }
         });
 
@@ -481,15 +484,16 @@ public class ContactCardFull extends ContactCardBase {
                 if (eMailJTextField.getText().trim().isEmpty()) {
                     eMailJTextField.setForeground(Color.GRAY);
                     eMailJTextField.setText("Email Address");
+                    eMail = "";
                 } else {
                     eMail = eMailJTextField.getText();
-                    if (!(countryCodeJTextField.getText().equalsIgnoreCase("Country Code"))) {
-                        eMailPhoneNumberTitleJLabel.setText(eMail + "     " + "+ " + countryCode + " " + phoneNumber);
-                    } else {
-                        eMailPhoneNumberTitleJLabel.setText(eMail + "     " + phoneNumber);
-                    }
-                    resizeJLabelText(eMailPhoneNumberTitleJLabel);
                 }
+                if (!(countryCodeJTextField.getText().equalsIgnoreCase("Country Code"))) {
+                    eMailPhoneNumberTitleJLabel.setText(eMail + "     " + "+ " + countryCode + " " + phoneNumber);
+                } else {
+                    eMailPhoneNumberTitleJLabel.setText(eMail + "     " + phoneNumber);
+                }
+                resizeJLabelText(eMailPhoneNumberTitleJLabel);
             }
         });
 
@@ -508,15 +512,16 @@ public class ContactCardFull extends ContactCardBase {
                 if (countryCodeJTextField.getText().trim().isEmpty()) {
                     countryCodeJTextField.setForeground(Color.GRAY);
                     countryCodeJTextField.setText("Country Code");
+                    countryCode = "";
                 } else {
                     countryCode = countryCodeJTextField.getText();
-                    if (!(countryCodeJTextField.getText().equalsIgnoreCase("Country Code"))) {
-                        eMailPhoneNumberTitleJLabel.setText(eMail + "     " + "+ " + countryCode + " " + phoneNumber);
-                    } else {
-                        eMailPhoneNumberTitleJLabel.setText(eMail + "     " + phoneNumber);
-                    }
-                    resizeJLabelText(eMailPhoneNumberTitleJLabel);
                 }
+                if (!(countryCodeJTextField.getText().equalsIgnoreCase("Country Code"))) {
+                    eMailPhoneNumberTitleJLabel.setText(eMail + "     " + "+ " + countryCode + " " + phoneNumber);
+                } else {
+                    eMailPhoneNumberTitleJLabel.setText(eMail + "     " + phoneNumber);
+                }
+                resizeJLabelText(eMailPhoneNumberTitleJLabel);
             }
         });
 
@@ -535,15 +540,16 @@ public class ContactCardFull extends ContactCardBase {
                 if (phoneNumberJTextField.getText().trim().isEmpty()) {
                     phoneNumberJTextField.setForeground(Color.GRAY);
                     phoneNumberJTextField.setText("Phone Number");
+                    phoneNumber = "";
                 } else {
                     phoneNumber = phoneNumberJTextField.getText();
-                    if (!(countryCodeJTextField.getText().equalsIgnoreCase("Country Code"))) {
-                        eMailPhoneNumberTitleJLabel.setText(eMail + "     " + "+ " + countryCode + " " + phoneNumber);
-                    } else {
-                        eMailPhoneNumberTitleJLabel.setText(eMail + "     " + phoneNumber);
-                    }
-                    resizeJLabelText(eMailPhoneNumberTitleJLabel);
                 }
+                if (!(countryCodeJTextField.getText().equalsIgnoreCase("Country Code"))) {
+                    eMailPhoneNumberTitleJLabel.setText(eMail + "     " + "+ " + countryCode + " " + phoneNumber);
+                } else {
+                    eMailPhoneNumberTitleJLabel.setText(eMail + "     " + phoneNumber);
+                }
+                resizeJLabelText(eMailPhoneNumberTitleJLabel);
             }
         });
 
@@ -562,6 +568,8 @@ public class ContactCardFull extends ContactCardBase {
                 if (birthDateJTextField.getText().trim().isEmpty()) {
                     birthDateJTextField.setForeground(Color.GRAY);
                     birthDateJTextField.setText("Date of Birth");
+                } else {
+                    birthDate = birthDateJTextField.getText();
                 }
             }
         });
@@ -581,6 +589,8 @@ public class ContactCardFull extends ContactCardBase {
                 if (commentsJTextArea.getText().trim().isEmpty()) {
                     commentsJTextArea.setForeground(Color.GRAY);
                     commentsJTextArea.setText("Comments");
+                } else {
+                    comments = commentsJTextArea.getText();
                 }
             }
         });
@@ -596,16 +606,25 @@ public class ContactCardFull extends ContactCardBase {
 
                 // Check if picture ratio is wider, less wide or the same as frame
                 if ((profilePicture.getIconWidth() / 100) > (profilePicture.getIconHeight() / 165)) {
-                    Image newImageSize = oldImageSize.getScaledInstance(profilePictureJButton.getWidth(), ((int) ((profilePicture.getIconHeight()) / (profilePicture.getIconWidth() / profilePictureJButton.getWidth()))), Image.SCALE_SMOOTH);
+                    Image newImageSize = oldImageSize.getScaledInstance(
+                            profilePictureJButton.getWidth(),
+                            ((int) ((profilePicture.getIconHeight()) /
+                                    (profilePicture.getIconWidth() / profilePictureJButton.getWidth()))),
+                            Image.SCALE_SMOOTH);
                     profilePicture = new ImageIcon(newImageSize);
                 } else if ((profilePicture.getIconWidth() / 100) < (profilePicture.getIconHeight() / 165)) {
-                    Image newImageSize = oldImageSize.getScaledInstance(((int) ((profilePicture.getIconWidth()) / (profilePicture.getIconHeight() / profilePictureJButton.getHeight()))), profilePictureJButton.getHeight(), Image.SCALE_SMOOTH);
+                    Image newImageSize = oldImageSize.getScaledInstance(
+                            ((int) ((profilePicture.getIconWidth()) /
+                                    (profilePicture.getIconHeight() / profilePictureJButton.getHeight()))),
+                            profilePictureJButton.getHeight(),
+                            Image.SCALE_SMOOTH);
                     profilePicture = new ImageIcon(newImageSize);
                 } else {
-                    Image newImageSize = oldImageSize.getScaledInstance(profilePictureJButton.getWidth(), profilePictureJButton.getHeight(), Image.SCALE_SMOOTH);
+                    Image newImageSize = oldImageSize.getScaledInstance(
+                            profilePictureJButton.getWidth(), profilePictureJButton.getHeight(),
+                            Image.SCALE_SMOOTH);
                     profilePicture = new ImageIcon(newImageSize);
                 }
-
                 profilePictureJButton.setIcon(profilePicture);
             }
         });

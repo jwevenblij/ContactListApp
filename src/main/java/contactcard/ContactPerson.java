@@ -3,33 +3,26 @@ package contactcard;
 public class ContactPerson {
 
     // contact
-    private int contactID;
+    private String contactID;
     private String firstName;
     private String middleName;
     private String lastName;
-    private int countryCode;
+    private String eMail;
+    private String countryCode;
+    private String phoneNumber;
     private String birthDate;
     private String comments;
-    private int FK_eMail;
-    private int FK_phoneNumber;
-
-    // eMail
-    private int eMail_ID;
-    private String eMail;
-
-    // phoneNumber
-    private int phoneNumber_ID;
-    private int phoneNumber;
+    private String profilePictureFilePath;
 
     public ContactPerson() {
 
     }
 
-    public int getContactID() {
+    public String getContactID() {
         return contactID;
     }
 
-    public void setContactID(int contactID) {
+    public void setContactID(String contactID) {
         this.contactID = contactID;
     }
 
@@ -57,12 +50,28 @@ public class ContactPerson {
         this.lastName = lastName;
     }
 
-    public int getCountryCode() {
+    public String geteMail() {
+        return eMail;
+    }
+
+    public void seteMail(String eMail) {
+        this.eMail = eMail;
+    }
+
+    public String getCountryCode() {
         return countryCode;
     }
 
-    public void setCountryCode(int countryCode) {
+    public void setCountryCode(String countryCode) {
         this.countryCode = countryCode;
+    }
+
+    public String getPhoneNumber() {
+        return phoneNumber;
+    }
+
+    public void setPhoneNumber(String phoneNumber) {
+        this.phoneNumber = phoneNumber;
     }
 
     public String getBirthDate() {
@@ -81,51 +90,11 @@ public class ContactPerson {
         this.comments = comments;
     }
 
-    public int getFK_eMail() {
-        return FK_eMail;
+    public String getProfilePictureFilePath() {
+        return profilePictureFilePath;
     }
 
-    public void setFK_eMail(int FK_eMail) {
-        this.FK_eMail = FK_eMail;
-    }
-
-    public int getFK_phoneNumber() {
-        return FK_phoneNumber;
-    }
-
-    public void setFK_phoneNumber(int FK_phoneNumber) {
-        this.FK_phoneNumber = FK_phoneNumber;
-    }
-
-    public int geteMail_ID() {
-        return eMail_ID;
-    }
-
-    public void seteMail_ID(int eMail_ID) {
-        this.eMail_ID = eMail_ID;
-    }
-
-    public String geteMail() {
-        return eMail;
-    }
-
-    public void seteMail(String eMail) {
-        this.eMail = eMail;
-    }
-
-    public int getPhoneNumber_ID() {
-        return phoneNumber_ID;
-    }
-
-    public void setPhoneNumber_ID(int phoneNumber_ID) {
-        this.phoneNumber_ID = phoneNumber_ID;
-    }
-
-    public int getPhoneNumber() {
-        return phoneNumber;
-    }
-
-    public void setPhoneNumber(int phoneNumber) {
-        this.phoneNumber = phoneNumber;
+    public void setProfilePictureFilePath(String profilePictureFilePath) {
+        this.profilePictureFilePath = profilePictureFilePath;
     }
 }
