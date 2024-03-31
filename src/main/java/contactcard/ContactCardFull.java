@@ -1,16 +1,14 @@
 package contactcard;
 
 import javax.swing.*;
-import javax.swing.border.Border;
 import java.awt.*;
-import java.awt.event.ActionEvent;
-import java.awt.event.ActionListener;
-import java.awt.event.FocusEvent;
-import java.awt.event.FocusListener;
+import java.awt.event.*;
 
 import contactcard.contactcardbuttons.*;
 import mainwindow.MainWindow;
 import tools.ColorPalette;
+
+import static contactcard.contactcardbuttons.EditProfilePicture.editProfilePicture;
 
 
 public class ContactCardFull extends ContactCardBase {
@@ -42,21 +40,21 @@ public class ContactCardFull extends ContactCardBase {
     JLabel phoneNumberJLabel, countryCodeJLabel;
     JLabel eMailJLabel;
     JLabel commentsJLabel;
-    JButton profilePictureJButton, editProfilePictureJButton, deleteProfilePictureJButton;
+    public JButton profilePictureJButton, editProfilePictureJButton, deleteProfilePictureJButton;
     JButton addPhoneNumberJButton, addEmailAddressJButton;
 
     SaveChanges saveChanges = new SaveChanges();
     DeleteCard deleteCard = new DeleteCard();
     CloseCard closeCard = new CloseCard();
-    DeleteProfilePicture deleteProfilePicture = new DeleteProfilePicture();
-    EditProfilePicture editProfilePicture = new EditProfilePicture();
+//    DeleteProfilePicture deleteProfilePicture = new DeleteProfilePicture();
+//    EditProfilePicture editProfilePicture = new EditProfilePicture();
 
 
     // Constructor
     public ContactCardFull() {
         super();
         setCardFullDefaults();
-        createTempFrame();
+        createFrame();
         configureProfilePictureJPanel();
         configureContactCardTitleTextJPanel();
         configureContactCardButtons();
@@ -178,8 +176,9 @@ public class ContactCardFull extends ContactCardBase {
     }
 
 
-    public void createTempFrame() {
+    public void createFrame() {
         contactCardFullFrame.setDefaultCloseOperation(WindowConstants.DISPOSE_ON_CLOSE);
+        contactCardFullFrame.addWindowListener(new MyWindowListener());
         contactCardFullFrame.setPreferredSize(new Dimension(600, 400));
         contactCardFullFrame.setResizable(false);
         contactCardFullFrame.setIconImage(MainWindow.setIconImage());
@@ -601,30 +600,9 @@ public class ContactCardFull extends ContactCardBase {
     public void addActionListeners() {
         editProfilePictureJButton.addActionListener(new ActionListener() {
             public void actionPerformed(ActionEvent e) {
-                profilePicture = new ImageIcon(String.valueOf(EditProfilePicture.editProfilePicture()));
-                Image oldImageSize = profilePicture.getImage();
-
-                // Check if picture ratio is wider, less wide or the same as frame
-                if ((profilePicture.getIconWidth() / 100) > (profilePicture.getIconHeight() / 165)) {
-                    Image newImageSize = oldImageSize.getScaledInstance(
-                            profilePictureJButton.getWidth(),
-                            ((int) ((profilePicture.getIconHeight()) /
-                                    (profilePicture.getIconWidth() / profilePictureJButton.getWidth()))),
-                            Image.SCALE_SMOOTH);
-                    profilePicture = new ImageIcon(newImageSize);
-                } else if ((profilePicture.getIconWidth() / 100) < (profilePicture.getIconHeight() / 165)) {
-                    Image newImageSize = oldImageSize.getScaledInstance(
-                            ((int) ((profilePicture.getIconWidth()) /
-                                    (profilePicture.getIconHeight() / profilePictureJButton.getHeight()))),
-                            profilePictureJButton.getHeight(),
-                            Image.SCALE_SMOOTH);
-                    profilePicture = new ImageIcon(newImageSize);
-                } else {
-                    Image newImageSize = oldImageSize.getScaledInstance(
-                            profilePictureJButton.getWidth(), profilePictureJButton.getHeight(),
-                            Image.SCALE_SMOOTH);
-                    profilePicture = new ImageIcon(newImageSize);
-                }
+                Dimension pictureDimension = new Dimension(profilePictureJButton.getWidth(), profilePictureJButton.getHeight());
+                profilePicture = new ImageIcon(String.valueOf(editProfilePicture()));
+                resizePictureToFrame(profilePicture, pictureDimension);
                 profilePictureJButton.setIcon(profilePicture);
             }
         });
@@ -633,6 +611,7 @@ public class ContactCardFull extends ContactCardBase {
             public void actionPerformed(ActionEvent e) {
                 profilePicture = new ImageIcon("src/main/java/resources/DefaultPfp.png");
                 profilePictureJButton.setIcon(profilePicture);
+                ContactPerson.setProfilePictureFilePathImport("src/main/java/resources/DefaultPfp.png");
             }
         });
 
@@ -668,6 +647,34 @@ public class ContactCardFull extends ContactCardBase {
     }
 
 
+    // Check if picture ratio is wider, less wide or the same as frame
+    public static ImageIcon resizePictureToFrame(ImageIcon profilePicture, Dimension frameDimension) {
+        Image oldImageSize = profilePicture.getImage();
+
+        if ((profilePicture.getIconWidth() / 100) > (profilePicture.getIconHeight() / 165)) {
+            Image newImageSize = oldImageSize.getScaledInstance(
+                    (int) frameDimension.getWidth(),
+                    ((int) ((profilePicture.getIconHeight()) /
+                            (profilePicture.getIconWidth() / frameDimension.getWidth()))),
+                    Image.SCALE_SMOOTH);
+            profilePicture = new ImageIcon(newImageSize);
+        } else if ((profilePicture.getIconWidth() / 100) < (profilePicture.getIconHeight() / 165)) {
+            Image newImageSize = oldImageSize.getScaledInstance(
+                    ((int) ((profilePicture.getIconWidth()) /
+                            (profilePicture.getIconHeight() / frameDimension.getHeight()))),
+                    (int) frameDimension.getHeight(),
+                    Image.SCALE_SMOOTH);
+            profilePicture = new ImageIcon(newImageSize);
+        } else {
+            Image newImageSize = oldImageSize.getScaledInstance(
+                    (int) frameDimension.getWidth(), (int) frameDimension.getHeight(),
+                    Image.SCALE_SMOOTH);
+            profilePicture = new ImageIcon(newImageSize);
+        }
+        return profilePicture;
+    }
+
+
     // Pack Frame and make Visible
     public void packAndVisible() {
         contactCardFullFrame.pack();
@@ -677,7 +684,7 @@ public class ContactCardFull extends ContactCardBase {
 
     // Resize JLabel text to fit Parent JLabel
     // Courtesy to (https://stackoverflow.com/questions/2715118/how-to-change-the-size-of-the-font-of-a-jlabel-to-take-the-maximum-size/2715279#2715279)
-    public void resizeJLabelText(JLabel tempJLabel) {
+    public static void resizeJLabelText(JLabel tempJLabel) {
         Font labelFont;
         String labelText;
         int stringWidth;
@@ -696,5 +703,12 @@ public class ContactCardFull extends ContactCardBase {
         componentHeight = tempJLabel.getHeight();
         fontSizeToUse = Math.min(newFontSize, componentHeight);
         tempJLabel.setFont(new Font(labelFont.getName(), Font.BOLD, fontSizeToUse));
+    }
+
+    public class MyWindowListener extends WindowAdapter {
+        public void windowClosing(WindowEvent e) {
+            ContactList.addEntriesToContactListJPanel();
+            SwingUtilities.updateComponentTreeUI(MainWindow.mainWindowFrame);
+        }
     }
 }

@@ -15,7 +15,7 @@ public class MainWindow {
     ContactList contactList = new ContactList();
     BottomBar bottomBar = new BottomBar();
 
-    static JFrame mainWindowFrame = new JFrame("My Contact List");
+    public static JFrame mainWindowFrame = new JFrame("My Contact List");
 
     public static int initialFrameWidth = 1280;
     public static int initialFrameHeight = 720;

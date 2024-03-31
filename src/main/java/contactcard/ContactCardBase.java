@@ -21,7 +21,7 @@ public class ContactCardBase {
     JLabel nameTitleJLabel;
     JLabel eMailPhoneNumberTitleJLabel;
 
-    ImageIcon profilePicture;
+    static ImageIcon profilePicture;
 
     public ContactCardBase() {
         setCardBaseDefaults();
@@ -132,38 +132,5 @@ public class ContactCardBase {
     // Set default profile picture
     public void setDefaultProfilePicture() {
         profilePicture = new ImageIcon("src/main/java/resources/DefaultPfp.png");
-    }
-
-
-    // Retrieve contact from XML
-    private void retrieveContactSQL() {
-
-    }
-
-
-    // Create new contact in XML
-    private void newContactSQL() {
-
-    }
-
-
-    // Edit contact in XML
-    private void editContactSQL() {
-
-    }
-
-
-    // Delete contact from XML
-    private void deleteContactSQL() {
-
-    }
-
-
-
-    // Set contact details
-    public void setContactDetails(
-
-    ) {
-
     }
 }
