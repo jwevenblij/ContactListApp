@@ -602,8 +602,7 @@ public class ContactCardFull extends ContactCardBase {
             public void actionPerformed(ActionEvent e) {
                 Dimension pictureDimension = new Dimension(profilePictureJButton.getWidth(), profilePictureJButton.getHeight());
                 profilePicture = new ImageIcon(String.valueOf(editProfilePicture()));
-                resizePictureToFrame(profilePicture, pictureDimension);
-                profilePictureJButton.setIcon(profilePicture);
+                profilePictureJButton.setIcon(resizePictureToFrame(profilePicture, pictureDimension));
             }
         });
 
