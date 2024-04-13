@@ -2,6 +2,7 @@ package contactcard.contactcardbuttons;
 
 import com.thoughtworks.xstream.XStream;
 import contactcard.ContactCardBase;
+import contactcard.ContactCardFull;
 import contactcard.ContactPerson;
 
 import javax.swing.*;
@@ -44,19 +45,31 @@ public class SaveChanges extends JButton {
         contactPerson.setPhoneNumber(ContactCardBase.getPhoneNumber());
         contactPerson.setBirthDate(ContactCardBase.getBirthDate());
         contactPerson.setComments(ContactCardBase.getComments());
-        ContactPerson.setProfilePictureFilePathImport(ContactCardBase.getProfilePictureFilePath());
-        contactPerson.setProfilePictureFilePath(ContactPerson.getProfilePictureFilePathImport());
-        contactPerson.setContactID(contactPerson.hashCode());
+        contactPerson.setProfilePictureFilePath(ContactCardBase.getProfilePictureFilePath());
+        contactPerson.setContactID(ContactCardBase.getCurrentHashCode());
+
     }
 
     // Write contactPerson to 'hashcode'.XML
     public void contactPersonToHashCodeXML() {
-        filePath = ("src/main/contacts/" +
-                        contactPerson.getFirstName() + "_" +
-                        contactPerson.getLastName() + "_" +
-                        contactPerson.getContactID() + ".xml");
-        String xml = xstream.toXML(contactPerson);
+
+        if(contactPerson.getContactID() == 0) {
+            contactPerson.setContactID(contactPerson.hashCode());
+            System.out.println(contactPerson.getContactID());
+
+            filePath = ("src/main/contacts/" +
+                    contactPerson.getFirstName() + "_" +
+                    contactPerson.getLastName() + "_" +
+                    contactPerson.getContactID() + ".xml");
+        } else {
+            System.out.println(contactPerson.getContactID());
+            filePath = ("src/main/contacts/" +
+                    contactPerson.getFirstName() + "_" +
+                    contactPerson.getLastName() + "_" +
+                    contactPerson.getContactID() + ".xml");
+        }
         try {
+            String xml = xstream.toXML(contactPerson);
             FileWriter fileWriter = new FileWriter(filePath);
             fileWriter.write(xml);
             fileWriter.close();

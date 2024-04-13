@@ -17,6 +17,7 @@ public class ContactCardBase {
     static String birthDate;
     static String comments;
     static String profilePictureFilePath;
+    static int currentHashCode;
 
     JLabel nameTitleJLabel;
     JLabel eMailPhoneNumberTitleJLabel;
@@ -36,6 +37,7 @@ public class ContactCardBase {
         eMail = "";
         countryCode = "";
         phoneNumber = "";
+//        currentHashCode = 0;
     }
 
 
@@ -128,6 +130,13 @@ public class ContactCardBase {
         ContactCardBase.profilePictureFilePath = profilePictureFilePath;
     }
 
+    public static int getCurrentHashCode() {
+        return currentHashCode;
+    }
+
+    public void setCurrentHashCode(int currentHashCode) {
+        ContactCardBase.currentHashCode = currentHashCode;
+    }
 
     // Set default profile picture
     public void setDefaultProfilePicture() {

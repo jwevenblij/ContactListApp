@@ -183,7 +183,7 @@ public class ContactCardFull extends ContactCardBase {
         contactCardFullFrame.setResizable(false);
         contactCardFullFrame.setIconImage(MainWindow.setIconImage());
         contactCardFullFrame.setLayout(new BorderLayout());
-        contactCardFullFrame.getContentPane().setBackground(bgDark);
+//        contactCardFullFrame.getContentPane().setBackground(bgDark);
     }
 
 
@@ -191,7 +191,7 @@ public class ContactCardFull extends ContactCardBase {
     public void configureAddEmailJPanel() {
         addEmailAddressJPanel.setLayout(new GridBagLayout());
         addEmailAddressJPanel.setSize(phoneNumberJTextField.getSize());
-        addEmailAddressJPanel.setBackground(bgDark);
+//        addEmailAddressJPanel.setBackground(bgDark);
 
         gbc.insets = insetsZero;
         gbc.fill = GridBagConstraints.BOTH;
@@ -209,7 +209,7 @@ public class ContactCardFull extends ContactCardBase {
     public void configureProfilePictureJPanel() {
         profilePictureJPanel.setLayout(new GridBagLayout());
         profilePictureJPanel.setPreferredSize(new Dimension(100, 165));
-        profilePictureJPanel.setBackground(ColorPalette.bgLight);
+//        profilePictureJPanel.setBackground(ColorPalette.bgLight);
 
         gbc.insets = insetsZero;
         gbc.fill = GridBagConstraints.BOTH;
@@ -234,7 +234,7 @@ public class ContactCardFull extends ContactCardBase {
     // Configure ContactCard Title Text JPanel
     public void configureContactCardTitleTextJPanel() {
         contactCardTitleTextJPanel.setLayout(new GridBagLayout());
-        contactCardTitleTextJPanel.setBackground(bgLight);
+//        contactCardTitleTextJPanel.setBackground(bgLight);
         contactCardTitleTextJPanel.setPreferredSize(new Dimension(500, 115));
 
         gbc.insets = insetsNorthJPanel;
@@ -257,7 +257,7 @@ public class ContactCardFull extends ContactCardBase {
     public void configureContactCardButtons() {
         contactCardButtonsJPanel.setLayout(new BorderLayout());
         contactCardButtonsJPanel.setPreferredSize(new Dimension(500, 50));
-        contactCardButtonsJPanel.setBackground(bgLight);
+//        contactCardButtonsJPanel.setBackground(bgLight);
 
         contactCardButtonsJPanel.add(saveChanges, BorderLayout.WEST);
         contactCardButtonsJPanel.add(deleteCard, BorderLayout.CENTER);
@@ -269,7 +269,7 @@ public class ContactCardFull extends ContactCardBase {
     public void configureContactCardTitleJPanel() {
         contactCardTitleJPanel.setLayout(new BorderLayout());
         contactCardTitleJPanel.setPreferredSize(new Dimension(500, 165));
-        contactCardTitleJPanel.setBackground(bgLight);
+//        contactCardTitleJPanel.setBackground(bgLight);
 
         contactCardTitleJPanel.add(contactCardTitleTextJPanel, BorderLayout.NORTH);
         contactCardTitleJPanel.add(contactCardButtonsJPanel, BorderLayout.CENTER);
@@ -280,7 +280,7 @@ public class ContactCardFull extends ContactCardBase {
         contactCardFullNorthJPanel.setBorder(BorderFactory.createEmptyBorder(5,5,5,5));
         contactCardFullNorthJPanel.setLayout(new BorderLayout());
         contactCardFullNorthJPanel.setPreferredSize(contactCardFullNorthJPanelDimension);
-        contactCardFullNorthJPanel.setBackground(bgLight);
+//        contactCardFullNorthJPanel.setBackground(bgLight);
 
         contactCardFullNorthJPanel.add(profilePictureJPanel, BorderLayout.WEST);
         contactCardFullNorthJPanel.add(contactCardTitleJPanel, BorderLayout.CENTER);
@@ -290,7 +290,7 @@ public class ContactCardFull extends ContactCardBase {
     // Configure Center JPanel
     public void configureCenterJPanel() {
         contactCardFullCenterTitleJPanel.setLayout(new GridBagLayout());
-        contactCardFullCenterTitleJPanel.setBackground(ColorPalette.bgDark);
+//        contactCardFullCenterTitleJPanel.setBackground(ColorPalette.bgDark);
 
         // Labels
         gbc.insets = insetsJLabel;
@@ -380,7 +380,7 @@ public class ContactCardFull extends ContactCardBase {
     // Configure contactCardFull JScrollPane
     public void addToScrollPane() {
         contactCardFullJScrollPane.setPreferredSize(new Dimension(contactCardFullCenterTitleJPanel.getWidth(), contactCardFullCenterTitleJPanel.getHeight()));
-        contactCardFullJScrollPane.setBackground(ColorPalette.bgDark);
+//        contactCardFullJScrollPane.setBackground(ColorPalette.bgDark);
         contactCardFullJScrollPane.setHorizontalScrollBarPolicy(ScrollPaneConstants.HORIZONTAL_SCROLLBAR_NEVER);
         contactCardFullJScrollPane.setViewportView(contactCardFullCenterTitleJPanel);
     }
@@ -610,7 +610,7 @@ public class ContactCardFull extends ContactCardBase {
             public void actionPerformed(ActionEvent e) {
                 profilePicture = new ImageIcon("src/main/java/resources/DefaultPfp.png");
                 profilePictureJButton.setIcon(profilePicture);
-                ContactPerson.setProfilePictureFilePathImport("src/main/java/resources/DefaultPfp.png");
+//                ContactPerson.setProfilePictureFilePathImport("src/main/java/resources/DefaultPfp.png");
             }
         });
 

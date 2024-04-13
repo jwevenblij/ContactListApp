@@ -27,7 +27,7 @@ public class EditProfilePicture extends JButton {
         if (returnVal == JFileChooser.APPROVE_OPTION) {
             File selectedFile = fileChooser.getSelectedFile();
             ContactCardBase.setProfilePictureFilePath(selectedFile.getPath());
-            ContactPerson.setProfilePictureFilePathImport(selectedFile.getPath());
+//            contactPerson.setProfilePictureFilePathImport(selectedFile.getPath());
             return selectedFile;
         } else if (returnVal == JFileChooser.CANCEL_OPTION) {
             return null;

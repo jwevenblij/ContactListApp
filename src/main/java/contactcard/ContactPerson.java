@@ -3,7 +3,7 @@ package contactcard;
 public class ContactPerson {
 
     // contact
-    private int contactID;
+    private int contactID = 0;
     private String firstName;
     private String middleName;
     private String lastName;
@@ -12,7 +12,7 @@ public class ContactPerson {
     private String phoneNumber;
     private String birthDate;
     private String comments;
-    private static String profilePictureFilePathImport;
+    private String profilePictureFilePathImport;
     private String profilePictureFilePath;
 
     public ContactPerson() {
@@ -91,12 +91,12 @@ public class ContactPerson {
         this.comments = comments;
     }
 
-    public static String getProfilePictureFilePathImport() {
+    public String getProfilePictureFilePathImport() {
         return profilePictureFilePathImport;
     }
 
-    public static void setProfilePictureFilePathImport(String profilePictureFilePath) {
-        ContactPerson.profilePictureFilePathImport = profilePictureFilePath;
+    public void setProfilePictureFilePathImport(String profilePictureFilePath) {
+        profilePictureFilePathImport = profilePictureFilePath;
     }
 
     public String getProfilePictureFilePath() {

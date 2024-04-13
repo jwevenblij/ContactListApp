@@ -43,8 +43,7 @@ public class BottomBar {
     // Configure bottomBarJPanel layout
     public void configureBottomBarJPanel() {
         bottomBarJPanel.setLayout(new GridBagLayout());
-        bottomBarJPanel.setPreferredSize(new Dimension(MainWindow.initialFrameWidth, 100));
-        bottomBarJPanel.setBackground(ColorPalette.bgLight);
+        bottomBarJPanel.setPreferredSize(new Dimension(MainWindow.initialFrameWidth, 50));
 
         gbc.fill = GridBagConstraints.BOTH;
         gbc.anchor = GridBagConstraints.LINE_START;
@@ -69,12 +68,15 @@ public class BottomBar {
         gbc.gridx = 4;
         bottomBarJPanel.add(deleteAllCardsJButton, gbc);
 
-        gbc.gridx = 5;
-        bottomBarJPanel.add(searchBarButtonJButton, gbc);
-
+        gbc.insets = new Insets(5, 5, 5, 3);
         gbc.weightx = 10;
-        gbc.gridx = 6;
+        gbc.gridx = 5;
         bottomBarJPanel.add(searchBarJTextField, gbc);
+
+        gbc.insets = new Insets(5,0,5,5);
+        gbc.weightx = 1;
+        gbc.gridx = 6;
+        bottomBarJPanel.add(searchBarButtonJButton, gbc);
     }
 
 }

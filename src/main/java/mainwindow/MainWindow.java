@@ -36,7 +36,7 @@ public class MainWindow {
         mainWindowFrame.setPreferredSize(initialAppSize);
         mainWindowFrame.setResizable(false);
         mainWindowFrame.setIconImage(setIconImage());
-        mainWindowFrame.getContentPane().setBackground(bgDark);
+//        mainWindowFrame.getContentPane().setBackground(bgDark);
 
         // Add panels to main window
         mainWindowFrame.add(ContactList.contactListJScrollPane, BorderLayout.CENTER);
