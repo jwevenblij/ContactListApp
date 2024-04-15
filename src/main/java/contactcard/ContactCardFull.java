@@ -609,6 +609,7 @@ public class ContactCardFull extends ContactCardBase {
         deleteProfilePictureJButton.addActionListener(new ActionListener() {
             public void actionPerformed(ActionEvent e) {
                 profilePicture = new ImageIcon("src/main/java/resources/DefaultPfp.png");
+                setProfilePictureFilePath("src/main/java/resources/DefaultPfp.png");
                 profilePictureJButton.setIcon(profilePicture);
 //                ContactPerson.setProfilePictureFilePathImport("src/main/java/resources/DefaultPfp.png");
             }
@@ -707,7 +708,7 @@ public class ContactCardFull extends ContactCardBase {
     public class MyWindowListener extends WindowAdapter {
         public void windowClosing(WindowEvent e) {
             ContactList.addEntriesToContactListJPanel();
-            SwingUtilities.updateComponentTreeUI(MainWindow.mainWindowFrame);
+//            SwingUtilities.updateComponentTreeUI(MainWindow.mainWindowFrame);
         }
     }
 }

@@ -9,12 +9,15 @@ import javax.swing.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.io.*;
+import java.nio.file.Files;
+import java.nio.file.Path;
 import java.util.ArrayList;
 
 public class SaveChanges extends JButton {
 
     XStream xstream = new XStream();
     String filePath = "";
+    public String oldFilePath = "";
     ContactPerson contactPerson;
 
     String firstFreeID = "";
@@ -53,6 +56,18 @@ public class SaveChanges extends JButton {
     // Write contactPerson to 'hashcode'.XML
     public void contactPersonToHashCodeXML() {
 
+        Path delFile = new File("src/main/contacts/" + oldFilePath + ".xml").toPath();
+        File fileExists = new File(String.valueOf(delFile));
+        System.out.println(delFile);
+
+        if (fileExists.exists()) {
+            try {
+                Files.delete(delFile);
+            } catch (IOException i) {
+                i.printStackTrace();
+            }
+        }
+
         if(contactPerson.getContactID() == 0) {
             contactPerson.setContactID(contactPerson.hashCode());
             System.out.println(contactPerson.getContactID());
@@ -61,13 +76,16 @@ public class SaveChanges extends JButton {
                     contactPerson.getFirstName() + "_" +
                     contactPerson.getLastName() + "_" +
                     contactPerson.getContactID() + ".xml");
+//            contactPerson.setContactID(0);
         } else {
             System.out.println(contactPerson.getContactID());
             filePath = ("src/main/contacts/" +
                     contactPerson.getFirstName() + "_" +
                     contactPerson.getLastName() + "_" +
                     contactPerson.getContactID() + ".xml");
+//            contactPerson.setContactID(0);
         }
+
         try {
             String xml = xstream.toXML(contactPerson);
             FileWriter fileWriter = new FileWriter(filePath);

@@ -37,7 +37,8 @@ public class ContactCardBase {
         eMail = "";
         countryCode = "";
         phoneNumber = "";
-//        currentHashCode = 0;
+        profilePictureFilePath = "src/main/java/resources/DefaultPfp.png";
+        currentHashCode = 0;
     }
 
 

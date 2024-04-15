@@ -1,0 +1,12 @@
+<contactcard.ContactPerson>
+  <contactID>1920994135</contactID>
+  <firstName>aw</firstName>
+  <middleName>daw</middleName>
+  <lastName>dwa</lastName>
+  <eMail>waddwa</eMail>
+  <countryCode>awdwaddaw</countryCode>
+  <phoneNumber>awd</phoneNumber>
+  <birthDate>awdw</birthDate>
+  <comments></comments>
+  <profilePictureFilePath>src/main/java/resources/DefaultPfp.png</profilePictureFilePath>
+</contactcard.ContactPerson>

@@ -22,7 +22,7 @@ public class ContactList {
 
     public static JScrollPane contactListJScrollPane = new JScrollPane();
     static JPanel contactListJPanel = new JPanel();
-    static List<File> allContactsList;
+    public static List<File> allContactsList;
 
     public ContactList() {
         configureContactListJPanel();
@@ -46,8 +46,8 @@ public class ContactList {
 
     // Add entries to contactListJPanel
     public static void addEntriesToContactListJPanel() {
-        XStream xstream = new XStream();
-        xstream.allowTypesByWildcard(new String[] {"contactcard.ContactPerson"});
+        XStream xStream = new XStream();
+        xStream.allowTypesByWildcard(new String[] {"contactcard.ContactPerson"});
 
         boolean addHeightOnOff = true;
         int heightIterator = 30;
@@ -83,14 +83,11 @@ public class ContactList {
                 System.out.println(e);
             }
 
-            ContactPerson currentContact = (ContactPerson)xstream.fromXML(xml);
+            ContactPerson currentContact = (ContactPerson)xStream.fromXML(xml);
             ImageIcon profilePictureImageIcon = new ImageIcon(currentContact.getProfilePictureFilePath());
 
-            if (!currentContact.getMiddleName().equalsIgnoreCase("")) {
-                contactNameString = currentContact.getFirstName() + " " + currentContact.getMiddleName() + " " + currentContact.getLastName();
-            } else {
-                contactNameString = currentContact.getFirstName() + " " + currentContact.getLastName();
-            }
+            contactNameString = currentContact.getFirstName() + " " + currentContact.getLastName();
+
             phoneNumberString = "+" + currentContact.getCountryCode() + " " + currentContact.getPhoneNumber();
             eMailString = currentContact.geteMail();
 
@@ -159,6 +156,7 @@ public class ContactList {
                     contactCardFull.phoneNumberJTextField.setText(currentContact.getPhoneNumber());
                     contactCardFull.eMailJTextField.setText(currentContact.geteMail());
                     contactCardFull.commentsJTextArea.setText(currentContact.getComments());
+                    contactCardFull.saveChanges.oldFilePath = currentContact.getFirstName() + "_" + currentContact.getLastName() + "_" + currentContact.getContactID();
 
                     contactCardFull.profilePictureJButton.setIcon(
                             contactCardFull.resizePictureToFrame(
@@ -166,6 +164,7 @@ public class ContactList {
                                     new Dimension(
                                             contactCardFull.profilePictureJButton.getWidth(),
                                             contactCardFull.profilePictureJButton.getHeight())));
+                    ContactCardBase.setProfilePictureFilePath(currentContact.getProfilePictureFilePath());
 
                     contactCardFull.nameTitleJLabel.setText(currentContact.getFirstName() + " " + currentContact.getMiddleName() + " " + currentContact.getLastName());
                     contactCardFull.eMailPhoneNumberTitleJLabel.setText(currentContact.geteMail() + "     " + "+ " + currentContact.getCountryCode() + " " + currentContact.getPhoneNumber());
@@ -173,6 +172,7 @@ public class ContactList {
                     contactCardFull.resizeJLabelText(contactCardFull.eMailPhoneNumberTitleJLabel);
                 }
             });
+            ContactCardBase.setProfilePictureFilePath("src/main/java/resources/DefaultPfp.png");
         }
     }
 

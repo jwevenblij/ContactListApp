@@ -1,0 +1,12 @@
+<contactcard.ContactPerson>
+  <contactID>2010181426</contactID>
+  <firstName>Nick</firstName>
+  <middleName></middleName>
+  <lastName>Italos</lastName>
+  <eMail>nickitalos@hotmail.com</eMail>
+  <countryCode>357</countryCode>
+  <phoneNumber>502394029</phoneNumber>
+  <birthDate>06-06-1996</birthDate>
+  <comments>My bro</comments>
+  <profilePictureFilePath>C:\Users\Jan\Desktop\Desktroep\ProfielFotos\Nick.jpg</profilePictureFilePath>
+</contactcard.ContactPerson>
