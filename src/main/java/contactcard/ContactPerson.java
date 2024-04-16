@@ -12,7 +12,6 @@ public class ContactPerson {
     private String phoneNumber;
     private String birthDate;
     private String comments;
-    private String profilePictureFilePathImport;
     private String profilePictureFilePath;
 
     public ContactPerson() {
@@ -89,14 +88,6 @@ public class ContactPerson {
 
     public void setComments(String comments) {
         this.comments = comments;
-    }
-
-    public String getProfilePictureFilePathImport() {
-        return profilePictureFilePathImport;
-    }
-
-    public void setProfilePictureFilePathImport(String profilePictureFilePath) {
-        profilePictureFilePathImport = profilePictureFilePath;
     }
 
     public String getProfilePictureFilePath() {

@@ -3,13 +3,16 @@ package contactcard;
 import javax.swing.*;
 import java.awt.*;
 import java.awt.event.*;
+import java.io.File;
+import java.io.IOException;
+import java.nio.file.Files;
+import java.nio.file.Path;
 
 import contactcard.contactcardbuttons.*;
 import mainwindow.MainWindow;
 import tools.ColorPalette;
 
 import static contactcard.contactcardbuttons.EditProfilePicture.editProfilePicture;
-
 
 public class ContactCardFull extends ContactCardBase {
 
@@ -19,7 +22,7 @@ public class ContactCardFull extends ContactCardBase {
     Insets insetsJTextField = new Insets(2, 2, 2, 10);
     Insets insetsNorthJPanel = new Insets(5,5,5,5);
 
-    JFrame contactCardFullFrame = new JFrame("Temp ContactCardFull");
+    JFrame contactCardFullFrame = new JFrame();
     JScrollPane contactCardFullJScrollPane = new JScrollPane();
     JPanel contactCardFullNorthJPanel = new JPanel();
     JPanel contactCardFullCenterTitleJPanel = new JPanel();
@@ -27,7 +30,6 @@ public class ContactCardFull extends ContactCardBase {
     JPanel contactCardTitleTextJPanel = new JPanel();
     JPanel contactCardButtonsJPanel = new JPanel();
     JPanel contactCardTitleJPanel = new JPanel();
-    JPanel addEmailAddressJPanel = new JPanel();
     Dimension contactCardFullNorthJPanelDimension = new Dimension(600, 175);
 
     JTextField firstNameJTextField, middleNameJTextField, lastNameJTextField;
@@ -43,11 +45,9 @@ public class ContactCardFull extends ContactCardBase {
     public JButton profilePictureJButton, editProfilePictureJButton, deleteProfilePictureJButton;
     JButton addPhoneNumberJButton, addEmailAddressJButton;
 
-    SaveChanges saveChanges = new SaveChanges();
-    DeleteCard deleteCard = new DeleteCard();
-    CloseCard closeCard = new CloseCard();
-//    DeleteProfilePicture deleteProfilePicture = new DeleteProfilePicture();
-//    EditProfilePicture editProfilePicture = new EditProfilePicture();
+    public SaveChanges saveChanges = new SaveChanges();
+    public DeleteCard deleteCard = new DeleteCard();
+    public CloseCard closeCard = new CloseCard(contactCardFullFrame);
 
 
     // Constructor
@@ -67,7 +67,6 @@ public class ContactCardFull extends ContactCardBase {
         addActionListeners();
         packAndVisible();
     }
-
 
     // Configure CardFull defaults
     public void setCardFullDefaults() {
@@ -183,25 +182,7 @@ public class ContactCardFull extends ContactCardBase {
         contactCardFullFrame.setResizable(false);
         contactCardFullFrame.setIconImage(MainWindow.setIconImage());
         contactCardFullFrame.setLayout(new BorderLayout());
-//        contactCardFullFrame.getContentPane().setBackground(bgDark);
-    }
-
-
-    // Configure add eMail JPanel
-    public void configureAddEmailJPanel() {
-        addEmailAddressJPanel.setLayout(new GridBagLayout());
-        addEmailAddressJPanel.setSize(phoneNumberJTextField.getSize());
-//        addEmailAddressJPanel.setBackground(bgDark);
-
-        gbc.insets = insetsZero;
-        gbc.fill = GridBagConstraints.BOTH;
-        gbc.anchor = GridBagConstraints.LINE_START;
-
-        gbc.weightx = 0;
-        gbc.weighty = 0;
-        gbc.gridx = 0;
-        gbc.gridy = 0;
-        addEmailAddressJPanel.add(eMailJTextField, gbc);
+        contactCardFullFrame.setTitle("New Contact");
     }
 
 
@@ -209,7 +190,6 @@ public class ContactCardFull extends ContactCardBase {
     public void configureProfilePictureJPanel() {
         profilePictureJPanel.setLayout(new GridBagLayout());
         profilePictureJPanel.setPreferredSize(new Dimension(100, 165));
-//        profilePictureJPanel.setBackground(ColorPalette.bgLight);
 
         gbc.insets = insetsZero;
         gbc.fill = GridBagConstraints.BOTH;
@@ -234,7 +214,6 @@ public class ContactCardFull extends ContactCardBase {
     // Configure ContactCard Title Text JPanel
     public void configureContactCardTitleTextJPanel() {
         contactCardTitleTextJPanel.setLayout(new GridBagLayout());
-//        contactCardTitleTextJPanel.setBackground(bgLight);
         contactCardTitleTextJPanel.setPreferredSize(new Dimension(500, 115));
 
         gbc.insets = insetsNorthJPanel;
@@ -257,7 +236,6 @@ public class ContactCardFull extends ContactCardBase {
     public void configureContactCardButtons() {
         contactCardButtonsJPanel.setLayout(new BorderLayout());
         contactCardButtonsJPanel.setPreferredSize(new Dimension(500, 50));
-//        contactCardButtonsJPanel.setBackground(bgLight);
 
         contactCardButtonsJPanel.add(saveChanges, BorderLayout.WEST);
         contactCardButtonsJPanel.add(deleteCard, BorderLayout.CENTER);
@@ -269,7 +247,6 @@ public class ContactCardFull extends ContactCardBase {
     public void configureContactCardTitleJPanel() {
         contactCardTitleJPanel.setLayout(new BorderLayout());
         contactCardTitleJPanel.setPreferredSize(new Dimension(500, 165));
-//        contactCardTitleJPanel.setBackground(bgLight);
 
         contactCardTitleJPanel.add(contactCardTitleTextJPanel, BorderLayout.NORTH);
         contactCardTitleJPanel.add(contactCardButtonsJPanel, BorderLayout.CENTER);
@@ -280,7 +257,6 @@ public class ContactCardFull extends ContactCardBase {
         contactCardFullNorthJPanel.setBorder(BorderFactory.createEmptyBorder(5,5,5,5));
         contactCardFullNorthJPanel.setLayout(new BorderLayout());
         contactCardFullNorthJPanel.setPreferredSize(contactCardFullNorthJPanelDimension);
-//        contactCardFullNorthJPanel.setBackground(bgLight);
 
         contactCardFullNorthJPanel.add(profilePictureJPanel, BorderLayout.WEST);
         contactCardFullNorthJPanel.add(contactCardTitleJPanel, BorderLayout.CENTER);
@@ -290,7 +266,6 @@ public class ContactCardFull extends ContactCardBase {
     // Configure Center JPanel
     public void configureCenterJPanel() {
         contactCardFullCenterTitleJPanel.setLayout(new GridBagLayout());
-//        contactCardFullCenterTitleJPanel.setBackground(ColorPalette.bgDark);
 
         // Labels
         gbc.insets = insetsJLabel;
@@ -380,7 +355,6 @@ public class ContactCardFull extends ContactCardBase {
     // Configure contactCardFull JScrollPane
     public void addToScrollPane() {
         contactCardFullJScrollPane.setPreferredSize(new Dimension(contactCardFullCenterTitleJPanel.getWidth(), contactCardFullCenterTitleJPanel.getHeight()));
-//        contactCardFullJScrollPane.setBackground(ColorPalette.bgDark);
         contactCardFullJScrollPane.setHorizontalScrollBarPolicy(ScrollPaneConstants.HORIZONTAL_SCROLLBAR_NEVER);
         contactCardFullJScrollPane.setViewportView(contactCardFullCenterTitleJPanel);
     }
@@ -394,8 +368,6 @@ public class ContactCardFull extends ContactCardBase {
 
     // Add FocusListeners
     public void addFocusListeners() {
-
-
         firstNameJTextField.addFocusListener(new FocusListener() {
 
             @Override
@@ -598,51 +570,34 @@ public class ContactCardFull extends ContactCardBase {
 
     // Add ActionListeners
     public void addActionListeners() {
-        editProfilePictureJButton.addActionListener(new ActionListener() {
-            public void actionPerformed(ActionEvent e) {
-                Dimension pictureDimension = new Dimension(profilePictureJButton.getWidth(), profilePictureJButton.getHeight());
-                profilePicture = new ImageIcon(String.valueOf(editProfilePicture()));
-                profilePictureJButton.setIcon(resizePictureToFrame(profilePicture, pictureDimension));
-            }
+        editProfilePictureJButton.addActionListener(e -> {
+            Dimension pictureDimension = new Dimension(profilePictureJButton.getWidth(), profilePictureJButton.getHeight());
+            profilePicture = new ImageIcon(String.valueOf(editProfilePicture()));
+            profilePictureJButton.setIcon(resizePictureToFrame(profilePicture, pictureDimension));
         });
 
-        deleteProfilePictureJButton.addActionListener(new ActionListener() {
-            public void actionPerformed(ActionEvent e) {
-                profilePicture = new ImageIcon("src/main/java/resources/DefaultPfp.png");
-                setProfilePictureFilePath("src/main/java/resources/DefaultPfp.png");
-                profilePictureJButton.setIcon(profilePicture);
-//                ContactPerson.setProfilePictureFilePathImport("src/main/java/resources/DefaultPfp.png");
-            }
+        deleteProfilePictureJButton.addActionListener(e -> {
+            profilePicture = new ImageIcon("src/main/java/resources/DefaultPfp.png");
+            setProfilePictureFilePath("src/main/java/resources/DefaultPfp.png");
+            profilePictureJButton.setIcon(profilePicture);
         });
 
-        saveChanges.addActionListener(new ActionListener() {
-            public void actionPerformed(ActionEvent e) {
+        saveChanges.addActionListener(e -> {
 
-            }
         });
 
-        deleteCard.addActionListener(new ActionListener() {
-            public void actionPerformed(ActionEvent e) {
+        deleteCard.addActionListener(ContactCardFull::actionPerformed);
 
-            }
+        closeCard.addActionListener(e -> {
+
         });
 
-        closeCard.addActionListener(new ActionListener() {
-            public void actionPerformed(ActionEvent e) {
+        addEmailAddressJButton.addActionListener(e -> {
 
-            }
         });
 
-        addEmailAddressJButton.addActionListener(new ActionListener() {
-            public void actionPerformed(ActionEvent e) {
+        addPhoneNumberJButton.addActionListener(e -> {
 
-            }
-        });
-
-        addPhoneNumberJButton.addActionListener(new ActionListener() {
-            public void actionPerformed(ActionEvent e) {
-
-            }
         });
     }
 
@@ -705,10 +660,27 @@ public class ContactCardFull extends ContactCardBase {
         tempJLabel.setFont(new Font(labelFont.getName(), Font.BOLD, fontSizeToUse));
     }
 
-    public class MyWindowListener extends WindowAdapter {
+    public static class MyWindowListener extends WindowAdapter {
         public void windowClosing(WindowEvent e) {
             ContactList.addEntriesToContactListJPanel();
-//            SwingUtilities.updateComponentTreeUI(MainWindow.mainWindowFrame);
+            MainWindow.mainWindowFrame.pack();
+        }
+    }
+
+    private static void actionPerformed(ActionEvent e) {
+        Path delFile = new File("src/main/contacts/" + firstName + "_" + lastName + "_" + currentHashCode + ".xml").toPath();
+        File fileExists = new File(String.valueOf(delFile));
+
+        System.out.println(delFile);
+
+        if (fileExists.exists()) {
+            try {
+                System.out.println("true");
+                Files.delete(delFile);
+            } catch (IOException i) {
+                System.out.println("false");
+                i.printStackTrace();
+            }
         }
     }
 }

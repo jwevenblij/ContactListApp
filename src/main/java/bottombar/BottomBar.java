@@ -1,10 +1,10 @@
 package bottombar;
 
+import bottombar.bottombarbuttons.DeleteAllCards;
 import bottombar.bottombarbuttons.NewCard;
 import bottombar.bottombarbuttons.OpenFile;
 import bottombar.bottombarbuttons.SaveFile;
 import mainwindow.MainWindow;
-import tools.ColorPalette;
 
 import javax.swing.*;
 import java.awt.*;
@@ -18,7 +18,7 @@ public class BottomBar {
     JButton openFileJButton = new OpenFile();
     JButton saveFileJButton = new SaveFile();
     JButton deleteSelectedCardJButton = new JButton();
-    JButton deleteAllCardsJButton = new JButton();
+    JButton deleteAllCardsJButton = new DeleteAllCards();
     JButton searchBarButtonJButton = new JButton();
     JTextField searchBarJTextField = new JTextField();
 
@@ -78,5 +78,4 @@ public class BottomBar {
         gbc.gridx = 6;
         bottomBarJPanel.add(searchBarButtonJButton, gbc);
     }
-
 }

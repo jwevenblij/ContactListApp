@@ -1,39 +1,48 @@
 package bottombar.bottombarbuttons;
 
 import com.thoughtworks.xstream.XStream;
-import contactcard.ContactCardBase;
 import contactcard.ContactList;
 import contactcard.ContactPerson;
 import mainwindow.MainWindow;
 
 import javax.swing.*;
-import java.awt.event.ActionEvent;
-import java.awt.event.ActionListener;
+import javax.swing.filechooser.FileNameExtensionFilter;
+import java.io.File;
 import java.io.FileWriter;
 import java.io.IOException;
+import java.nio.charset.StandardCharsets;
 import java.nio.file.Files;
-import java.nio.file.Path;
-import java.util.ArrayList;
-import java.util.Arrays;
-import java.util.List;
 
 public class OpenFile extends JButton {
 
     public OpenFile() { addActionListeners(); }
 
     public void addActionListeners() {
-        this.addActionListener(new ActionListener() {
-            @Override
-            public void actionPerformed(ActionEvent e) {
-                XStream xStream = new XStream();
-                xStream.allowTypesByWildcard(new String[] {"contactcard.ContactPerson"});
+        this.addActionListener(e -> {
+            XStream xStream = new XStream();
+            xStream.allowTypesByWildcard(new String[] {"contactcard.ContactPerson"});
 
-                String filePath = "";
-                String importString = "";
+            String filePath = "";
+            String importString = "";
+
+            FileNameExtensionFilter filter = new FileNameExtensionFilter(
+                    "XML files", "xml");
+            JFileChooser fileChooser = new JFileChooser();
+
+            fileChooser.setCurrentDirectory(new File(System.getProperty("user.home")));
+            fileChooser.setFileFilter(filter);
+            fileChooser.addChoosableFileFilter(filter);
+
+            int returnVal = fileChooser.showOpenDialog(null);
+
+            DeleteAllCards.clearAllContacts();
+
+            if (returnVal == JFileChooser.APPROVE_OPTION) {
+                File selectedFile = fileChooser.getSelectedFile();
 
                 // Import the xml file with all contacts as a String
                 try {
-                    importString = Files.readString(Path.of("src/main/fullcontactlists/testFile.xml"));
+                    importString = Files.readString(selectedFile.toPath(), StandardCharsets.UTF_8);
                 } catch (IOException ex) {
                     throw new RuntimeException(ex);
                 }
@@ -53,7 +62,7 @@ public class OpenFile extends JButton {
                 }
 
                 // Save individual contacts to folder
-                for (int i = 0; i < importStringArray.length - 2; i++) {
+                for (int i = 0; i < importStringArray.length - 1; i++) {
                     ContactPerson currentContact = (ContactPerson)xStream.fromXML(importStringArray[i]);
 
                     filePath = ("src/main/contacts/" +
@@ -73,9 +82,11 @@ public class OpenFile extends JButton {
 
                 // Redraw the ContactList canvas
                 ContactList.addEntriesToContactListJPanel();
-                SwingUtilities.updateComponentTreeUI(MainWindow.mainWindowFrame);
+                MainWindow.mainWindowFrame.pack();
+
+            } else if (returnVal == JFileChooser.ERROR_OPTION) {
+                JOptionPane.showMessageDialog(null, "Selected file format is not XML", "Incorrect file format", JOptionPane.ERROR_MESSAGE);
             }
         });
     }
-
 }

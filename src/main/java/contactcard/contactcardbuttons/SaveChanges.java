@@ -2,16 +2,12 @@ package contactcard.contactcardbuttons;
 
 import com.thoughtworks.xstream.XStream;
 import contactcard.ContactCardBase;
-import contactcard.ContactCardFull;
 import contactcard.ContactPerson;
 
 import javax.swing.*;
-import java.awt.event.ActionEvent;
-import java.awt.event.ActionListener;
 import java.io.*;
 import java.nio.file.Files;
 import java.nio.file.Path;
-import java.util.ArrayList;
 
 public class SaveChanges extends JButton {
 
@@ -20,20 +16,15 @@ public class SaveChanges extends JButton {
     public String oldFilePath = "";
     ContactPerson contactPerson;
 
-    String firstFreeID = "";
-
     public SaveChanges() {
         addActionListeners();
     }
 
     // Add actionListeners
     public void addActionListeners() {
-        this.addActionListener(new ActionListener() {
-            @Override
-            public void actionPerformed(ActionEvent e) {
-                createContactPersonObject();
-                contactPersonToHashCodeXML();
-            }
+        this.addActionListener(e -> {
+            createContactPersonObject();
+            contactPersonToHashCodeXML();
         });
     }
 
@@ -50,7 +41,6 @@ public class SaveChanges extends JButton {
         contactPerson.setComments(ContactCardBase.getComments());
         contactPerson.setProfilePictureFilePath(ContactCardBase.getProfilePictureFilePath());
         contactPerson.setContactID(ContactCardBase.getCurrentHashCode());
-
     }
 
     // Write contactPerson to 'hashcode'.XML
@@ -76,14 +66,12 @@ public class SaveChanges extends JButton {
                     contactPerson.getFirstName() + "_" +
                     contactPerson.getLastName() + "_" +
                     contactPerson.getContactID() + ".xml");
-//            contactPerson.setContactID(0);
         } else {
             System.out.println(contactPerson.getContactID());
             filePath = ("src/main/contacts/" +
                     contactPerson.getFirstName() + "_" +
                     contactPerson.getLastName() + "_" +
                     contactPerson.getContactID() + ".xml");
-//            contactPerson.setContactID(0);
         }
 
         try {

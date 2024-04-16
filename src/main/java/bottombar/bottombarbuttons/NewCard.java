@@ -3,8 +3,6 @@ package bottombar.bottombarbuttons;
 import contactcard.ContactCardFull;
 
 import javax.swing.*;
-import java.awt.event.ActionEvent;
-import java.awt.event.ActionListener;
 
 public class NewCard extends JButton {
 
@@ -13,11 +11,8 @@ public class NewCard extends JButton {
     }
 
     public void addActionListeners() {
-        this.addActionListener(new ActionListener() {
-            @Override
-            public void actionPerformed(ActionEvent e) {
-                ContactCardFull contactCardFull = new ContactCardFull();
-            }
+        this.addActionListener(e -> {
+            new ContactCardFull();
         });
     }
 

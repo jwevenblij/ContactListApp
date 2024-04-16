@@ -1,12 +1,9 @@
 package contactcard;
 
 import com.thoughtworks.xstream.XStream;
-import tools.ColorPalette;
 
 import javax.swing.*;
 import java.awt.*;
-import java.awt.event.ActionEvent;
-import java.awt.event.ActionListener;
 import java.io.File;
 import java.nio.charset.StandardCharsets;
 import java.nio.file.Files;
@@ -17,8 +14,6 @@ import java.util.List;
 public class ContactList {
 
     static String fileNameToContactPersonID = "";
-
-    static Icon profilePictureIcon = new ImageIcon("src/main/java/resources/DefaultPfp.png");
 
     public static JScrollPane contactListJScrollPane = new JScrollPane();
     static JPanel contactListJPanel = new JPanel();
@@ -32,13 +27,11 @@ public class ContactList {
 
     // Configure contactListJPanel
     public void configureContactListJPanel() {
-        contactListJPanel.setLayout(new FlowLayout());
-//        contactListJPanel.setBackground(ColorPalette.bgDark);
+        contactListJPanel.setLayout(new FlowLayout(FlowLayout.LEADING, 7, 7));
     }
 
     // Configure contactListJScrollPane
     public void configureContactListJScrollPane() {
-//        contactListJScrollPane.setBackground(ColorPalette.bgDark);
         contactListJScrollPane.setHorizontalScrollBarPolicy(ScrollPaneConstants.HORIZONTAL_SCROLLBAR_NEVER);
         contactListJScrollPane.setViewportView(contactListJPanel);
         contactListJScrollPane.getVerticalScrollBar().setUnitIncrement(16);
@@ -52,7 +45,6 @@ public class ContactList {
         boolean addHeightOnOff = true;
         int heightIterator = 30;
         int allContactsListItemIndex = 0;
-        GridBagConstraints gbc = new GridBagConstraints();
         Dimension profilePictureJLabelDimension = new Dimension(100, 165);
 
         contactListJPanel.removeAll();
@@ -69,7 +61,7 @@ public class ContactList {
 
         for (File allContactsListItem : allContactsList) {
             String contactNameString, phoneNumberString, eMailString;
-            JLabel contactNameJLabel, phoneNumberJLabel, eMailJlabel, phoneNumberEMailJLabel;
+            JLabel contactNameJLabel, phoneNumberEMailJLabel;
             JLabel profilePictureJLabel = new JLabel();
             JPanel profilePictureSmallJPanel = new JPanel();
             JPanel titleTextSmallJPanel = new JPanel();
@@ -115,16 +107,14 @@ public class ContactList {
             contactListEntryJButton.setLayout(new BorderLayout());
             contactListEntryJButton.setPreferredSize(new Dimension(615, 175));
 
-//            resizeJLabelText(contactNameJLabel);
-//            resizeJLabelText(phoneNumberEMailJLabel);
-
             contactListEntryJButton.add(profilePictureSmallJPanel, BorderLayout.WEST);
             contactListEntryJButton.add(titleTextSmallJPanel, BorderLayout.CENTER);
 
+            contactListJPanel.add(contactListEntryJButton);
+            allContactsListItemIndex++;
 
-        contactListJPanel.add(contactListEntryJButton);
             if (addHeightOnOff) {
-                heightIterator += 175;
+                heightIterator += 178;
                 addHeightOnOff = false;
             } else {
                 addHeightOnOff = true;
@@ -132,70 +122,56 @@ public class ContactList {
 
             profilePictureSmallJPanel.setBackground(contactListEntryJButton.getBackground());
             titleTextSmallJPanel.setBackground(contactListEntryJButton.getBackground());
-            contactListJPanel.setPreferredSize(new Dimension(0, heightIterator));
-            allContactsListItemIndex++;
 
-            contactListEntryJButton.addActionListener(new ActionListener() {
-                public void actionPerformed(ActionEvent e) {
-                    ContactCardFull contactCardFull = new ContactCardFull();
-                    contactCardFull.setFirstName(currentContact.getFirstName());
-                    contactCardFull.setMiddleName(currentContact.getMiddleName());
-                    contactCardFull.setLastName(currentContact.getLastName());
-                    contactCardFull.setBirthDate(currentContact.getBirthDate());
-                    contactCardFull.setCountryCode(currentContact.getCountryCode());
-                    contactCardFull.setPhoneNumber(currentContact.getPhoneNumber());
-                    contactCardFull.seteMail(currentContact.geteMail());
-                    contactCardFull.setComments(currentContact.getComments());
-                    contactCardFull.setCurrentHashCode(currentContact.getContactID());
+            contactListEntryJButton.addActionListener(e -> {
+                ContactCardFull contactCardFull = getContactCardFull(currentContact);
 
-                    contactCardFull.firstNameJTextField.setText(currentContact.getFirstName());
-                    contactCardFull.middleNameJTextField.setText(currentContact.getMiddleName());
-                    contactCardFull.lastNameJTextField.setText(currentContact.getLastName());
-                    contactCardFull.birthDateJTextField.setText(currentContact.getBirthDate());
-                    contactCardFull.countryCodeJTextField.setText(currentContact.getCountryCode());
-                    contactCardFull.phoneNumberJTextField.setText(currentContact.getPhoneNumber());
-                    contactCardFull.eMailJTextField.setText(currentContact.geteMail());
-                    contactCardFull.commentsJTextArea.setText(currentContact.getComments());
-                    contactCardFull.saveChanges.oldFilePath = currentContact.getFirstName() + "_" + currentContact.getLastName() + "_" + currentContact.getContactID();
+                contactCardFull.contactCardFullFrame.setTitle(currentContact.getFirstName() + " " + currentContact.getLastName());
 
-                    contactCardFull.profilePictureJButton.setIcon(
-                            contactCardFull.resizePictureToFrame(
-                                    new ImageIcon(String.valueOf(currentContact.getProfilePictureFilePath())),
-                                    new Dimension(
-                                            contactCardFull.profilePictureJButton.getWidth(),
-                                            contactCardFull.profilePictureJButton.getHeight())));
-                    ContactCardBase.setProfilePictureFilePath(currentContact.getProfilePictureFilePath());
+                contactCardFull.firstNameJTextField.setText(currentContact.getFirstName());
+                contactCardFull.middleNameJTextField.setText(currentContact.getMiddleName());
+                contactCardFull.lastNameJTextField.setText(currentContact.getLastName());
+                contactCardFull.birthDateJTextField.setText(currentContact.getBirthDate());
+                contactCardFull.countryCodeJTextField.setText(currentContact.getCountryCode());
+                contactCardFull.phoneNumberJTextField.setText(currentContact.getPhoneNumber());
+                contactCardFull.eMailJTextField.setText(currentContact.geteMail());
+                contactCardFull.commentsJTextArea.setText(currentContact.getComments());
+                contactCardFull.saveChanges.oldFilePath = currentContact.getFirstName() + "_" + currentContact.getLastName() + "_" + currentContact.getContactID();
 
-                    contactCardFull.nameTitleJLabel.setText(currentContact.getFirstName() + " " + currentContact.getMiddleName() + " " + currentContact.getLastName());
-                    contactCardFull.eMailPhoneNumberTitleJLabel.setText(currentContact.geteMail() + "     " + "+ " + currentContact.getCountryCode() + " " + currentContact.getPhoneNumber());
-                    contactCardFull.resizeJLabelText(contactCardFull.nameTitleJLabel);
-                    contactCardFull.resizeJLabelText(contactCardFull.eMailPhoneNumberTitleJLabel);
-                }
+                contactCardFull.profilePictureJButton.setIcon(
+                        ContactCardFull.resizePictureToFrame(
+                                new ImageIcon(String.valueOf(currentContact.getProfilePictureFilePath())),
+                                new Dimension(
+                                        contactCardFull.profilePictureJButton.getWidth(),
+                                        contactCardFull.profilePictureJButton.getHeight())));
+                ContactCardBase.setProfilePictureFilePath(currentContact.getProfilePictureFilePath());
+
+                contactCardFull.nameTitleJLabel.setText(currentContact.getFirstName() + " " + currentContact.getMiddleName() + " " + currentContact.getLastName());
+                contactCardFull.eMailPhoneNumberTitleJLabel.setText(currentContact.geteMail() + "     " + "+ " + currentContact.getCountryCode() + " " + currentContact.getPhoneNumber());
+                ContactCardFull.resizeJLabelText(contactCardFull.nameTitleJLabel);
+                ContactCardFull.resizeJLabelText(contactCardFull.eMailPhoneNumberTitleJLabel);
             });
             ContactCardBase.setProfilePictureFilePath("src/main/java/resources/DefaultPfp.png");
         }
+
+        if (allContactsListItemIndex % 2 == 0) {
+            contactListJPanel.setPreferredSize(new Dimension(0, ((allContactsListItemIndex / 2) * 175) + ((allContactsListItemIndex / 2) * 7) + 7));
+        } else if (allContactsListItemIndex % 2 == 1) {
+            contactListJPanel.setPreferredSize(new Dimension(0, ((allContactsListItemIndex / 2) * 175) + ((allContactsListItemIndex / 2) * 7) + 189));
+        }
     }
 
-    // Resize JLabel text to fit Parent JLabel
-    // Courtesy to (https://stackoverflow.com/questions/2715118/how-to-change-the-size-of-the-font-of-a-jlabel-to-take-the-maximum-size/2715279#2715279)
-    public static void resizeJLabelText(JLabel tempJLabel) {
-        Font labelFont;
-        String labelText;
-        int stringWidth;
-        int componentWidth;
-        int newFontSize;
-        int componentHeight;
-        int fontSizeToUse;
-        double widthRatio;
-
-        labelFont = tempJLabel.getFont();
-        labelText = tempJLabel.getText();
-        stringWidth = tempJLabel.getFontMetrics(labelFont).stringWidth(labelText);
-        componentWidth = tempJLabel.getWidth();
-        widthRatio = (double)componentWidth / (double)stringWidth;
-        newFontSize = (int)(labelFont.getSize() * widthRatio);
-        componentHeight = tempJLabel.getHeight();
-        fontSizeToUse = Math.min(newFontSize, componentHeight);
-        tempJLabel.setFont(new Font(labelFont.getName(), Font.BOLD, fontSizeToUse));
+    private static ContactCardFull getContactCardFull(ContactPerson currentContact) {
+        ContactCardFull contactCardFull = new ContactCardFull();
+        contactCardFull.setFirstName(currentContact.getFirstName());
+        contactCardFull.setMiddleName(currentContact.getMiddleName());
+        contactCardFull.setLastName(currentContact.getLastName());
+        contactCardFull.setBirthDate(currentContact.getBirthDate());
+        contactCardFull.setCountryCode(currentContact.getCountryCode());
+        contactCardFull.setPhoneNumber(currentContact.getPhoneNumber());
+        contactCardFull.seteMail(currentContact.geteMail());
+        contactCardFull.setComments(currentContact.getComments());
+        contactCardFull.setCurrentHashCode(currentContact.getContactID());
+        return contactCardFull;
     }
 }

@@ -3,8 +3,7 @@ package bottombar.bottombarbuttons;
 import contactcard.ContactList;
 
 import javax.swing.*;
-import java.awt.event.ActionEvent;
-import java.awt.event.ActionListener;
+import javax.swing.filechooser.FileNameExtensionFilter;
 import java.io.File;
 import java.io.FileWriter;
 import java.io.IOException;
@@ -18,35 +17,57 @@ public class SaveFile extends JButton {
     public SaveFile() { addActionListeners(); }
 
     public void addActionListeners() {
-        this.addActionListener(new ActionListener() {
-            @Override
-            public void actionPerformed(ActionEvent e) {
-                List<File> allContactsList = ContactList.allContactsList;
-                ArrayList<String> contactListFileArray = new ArrayList<>();
+        this.addActionListener(e -> saveMethod());
+    }
 
-                // Iterate over each individual contact.xml and apply to String
-                for (File allContactsListItem : allContactsList) {
-                    String xmlIndividualContact = "";
+    public static void saveMethod() {
+        List<File> allContactsList = ContactList.allContactsList;
+        ArrayList<String> contactListFileArray = new ArrayList<>();
 
-                    try {
-                        xmlIndividualContact = Files.readString(allContactsListItem.toPath(), StandardCharsets.UTF_8);
-                    } catch (Exception i) {
-                        System.out.println(i);
-                    }
+        FileNameExtensionFilter filter = new FileNameExtensionFilter(
+                "XML files", "xml");
+        JFileChooser fileChooser = new JFileChooser();
 
-                    // Add current contact to ArrayList
-                    contactListFileArray.add(xmlIndividualContact);
-                }
+        fileChooser.setCurrentDirectory(new File(System.getProperty("user.home")));
+        fileChooser.setFileFilter(filter);
+        fileChooser.addChoosableFileFilter(filter);
+
+        FileWriter fileWriter;
+
+        int returnVal = fileChooser.showSaveDialog(null);
+
+        if (returnVal == JFileChooser.APPROVE_OPTION) {
+            File selectedFile = fileChooser.getSelectedFile();
+
+            // Iterate over each individual contact.xml and apply to String
+            for (File allContactsListItem : allContactsList) {
+                String xmlIndividualContact = "";
 
                 try {
-                    FileWriter fileWriter = new FileWriter("src/main/fullcontactlists/testFile.xml");
-                    fileWriter.write(String.valueOf(contactListFileArray));
-                    fileWriter.close();
-                } catch (IOException j) {
-                    j.printStackTrace();
+                    xmlIndividualContact = Files.readString(allContactsListItem.toPath(), StandardCharsets.UTF_8);
+                } catch (Exception i) {
+                    System.out.println(i);
                 }
+
+                // Add current contact to ArrayList
+                contactListFileArray.add(xmlIndividualContact);
             }
-        });
+
+            try {
+                if (selectedFile.toString().length() >= 4 && selectedFile.toString().substring((int) (selectedFile.toString().length() - 4), (int) selectedFile.toString().length()).equalsIgnoreCase(".xml")) {
+                    System.out.println(selectedFile.toString().substring((int) (selectedFile.toString().length() - 3)));
+                    fileWriter = new FileWriter(selectedFile.toString().substring(0, (int) (selectedFile.toString().length() - 4)) + ".xml");
+                } else {
+                    System.out.println(selectedFile.toString().substring((int) (selectedFile.toString().length() - 3)));
+                    fileWriter = new FileWriter(selectedFile + ".xml");
+                }
+                fileWriter.write(String.valueOf(contactListFileArray));
+                fileWriter.close();
+
+            } catch (IOException j) {
+                j.printStackTrace();
+            }
+        }
     }
 
 }

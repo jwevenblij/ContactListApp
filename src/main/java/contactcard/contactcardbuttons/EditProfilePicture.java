@@ -1,7 +1,6 @@
 package contactcard.contactcardbuttons;
 
 import contactcard.ContactCardBase;
-import contactcard.ContactPerson;
 
 import javax.swing.*;
 import javax.swing.filechooser.FileNameExtensionFilter;
@@ -27,7 +26,6 @@ public class EditProfilePicture extends JButton {
         if (returnVal == JFileChooser.APPROVE_OPTION) {
             File selectedFile = fileChooser.getSelectedFile();
             ContactCardBase.setProfilePictureFilePath(selectedFile.getPath());
-//            contactPerson.setProfilePictureFilePathImport(selectedFile.getPath());
             return selectedFile;
         } else if (returnVal == JFileChooser.CANCEL_OPTION) {
             return null;

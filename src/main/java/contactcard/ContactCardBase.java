@@ -1,11 +1,7 @@
 package contactcard;
 
-
-import javax.imageio.ImageIO;
 import javax.swing.*;
 import java.awt.*;
-import java.io.File;
-import java.io.IOException;
 
 public class ContactCardBase {
     Color bgDark, bgLight, fgDark, fgLight;
@@ -48,7 +44,7 @@ public class ContactCardBase {
 
 
     public void setFirstName(String firstName) {
-        this.firstName = firstName;
+        ContactCardBase.firstName = firstName;
     }
 
 
@@ -58,7 +54,7 @@ public class ContactCardBase {
 
 
     public void setMiddleName(String middleName) {
-        this.middleName = middleName;
+        ContactCardBase.middleName = middleName;
     }
 
 
@@ -68,7 +64,7 @@ public class ContactCardBase {
 
 
     public void setLastName(String lastName) {
-        this.lastName = lastName;
+        ContactCardBase.lastName = lastName;
     }
 
 
@@ -78,7 +74,7 @@ public class ContactCardBase {
 
 
     public void seteMail(String eMail) {
-        this.eMail = eMail;
+        ContactCardBase.eMail = eMail;
     }
 
 
@@ -88,7 +84,7 @@ public class ContactCardBase {
 
 
     public void setCountryCode(String countryCode) {
-        this.countryCode = countryCode;
+        ContactCardBase.countryCode = countryCode;
     }
 
 
@@ -98,7 +94,7 @@ public class ContactCardBase {
 
 
     public void setPhoneNumber(String phoneNumber) {
-        this.phoneNumber = phoneNumber;
+        ContactCardBase.phoneNumber = phoneNumber;
     }
 
 
@@ -108,7 +104,7 @@ public class ContactCardBase {
 
 
     public void setBirthDate(String birthDate) {
-        this.birthDate = birthDate;
+        ContactCardBase.birthDate = birthDate;
     }
 
 

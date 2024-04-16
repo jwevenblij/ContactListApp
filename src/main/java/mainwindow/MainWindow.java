@@ -12,9 +12,6 @@ import java.io.IOException;
 
 public class MainWindow {
 
-    ContactList contactList = new ContactList();
-    BottomBar bottomBar = new BottomBar();
-
     public static JFrame mainWindowFrame = new JFrame("My Contact List");
 
     public static int initialFrameWidth = 1280;

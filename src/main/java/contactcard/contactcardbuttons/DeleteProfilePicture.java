@@ -4,6 +4,4 @@ import javax.swing.*;
 
 public class DeleteProfilePicture extends JButton {
 
-
-
 }
