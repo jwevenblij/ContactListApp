@@ -21,6 +21,9 @@ public class MainWindow {
     Color bgDark, bgLight, fgDark, fgLight;
 
     public MainWindow() {
+        new ContactList();
+        new BottomBar();
+
         // Set color profile
         bgDark = ColorPalette.bgDark;
         bgLight = ColorPalette.bgLight;
@@ -33,7 +36,6 @@ public class MainWindow {
         mainWindowFrame.setPreferredSize(initialAppSize);
         mainWindowFrame.setResizable(false);
         mainWindowFrame.setIconImage(setIconImage());
-//        mainWindowFrame.getContentPane().setBackground(bgDark);
 
         // Add panels to main window
         mainWindowFrame.add(ContactList.contactListJScrollPane, BorderLayout.CENTER);
@@ -51,7 +53,6 @@ public class MainWindow {
 
     // Set main window icon
     public static Image setIconImage() {
-
         Image iconImage = null;
 
         try {

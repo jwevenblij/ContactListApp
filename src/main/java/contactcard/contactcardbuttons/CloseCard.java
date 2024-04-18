@@ -11,6 +11,7 @@ public class CloseCard extends JButton {
 
     public void addActionListeners(JFrame currentFrame) {
         this.addActionListener(e -> {
+            ContactList.populateFullContactList();
             ContactList.addEntriesToContactListJPanel();
             MainWindow.mainWindowFrame.pack();
             currentFrame.dispose();

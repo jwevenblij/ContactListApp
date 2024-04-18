@@ -1,5 +1,6 @@
 package bottombar.bottombarbuttons;
 
+import bottombar.BottomBar;
 import com.thoughtworks.xstream.XStream;
 import contactcard.ContactList;
 import contactcard.ContactPerson;
@@ -12,6 +13,7 @@ import java.io.FileWriter;
 import java.io.IOException;
 import java.nio.charset.StandardCharsets;
 import java.nio.file.Files;
+import java.util.ArrayList;
 
 public class OpenFile extends JButton {
 
@@ -81,7 +83,9 @@ public class OpenFile extends JButton {
                 }
 
                 // Redraw the ContactList canvas
+                ContactList.populateFullContactList();
                 ContactList.addEntriesToContactListJPanel();
+                BottomBar.backupAllContactsList = new ArrayList<>(ContactList.allContactsList);
                 MainWindow.mainWindowFrame.pack();
 
             } else if (returnVal == JFileChooser.ERROR_OPTION) {

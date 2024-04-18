@@ -3,6 +3,7 @@ package contactcard;
 import javax.swing.*;
 import java.awt.*;
 import java.awt.event.*;
+import java.awt.image.AreaAveragingScaleFilter;
 import java.io.File;
 import java.io.IOException;
 import java.nio.file.Files;
@@ -48,7 +49,6 @@ public class ContactCardFull extends ContactCardBase {
     public SaveChanges saveChanges = new SaveChanges();
     public DeleteCard deleteCard = new DeleteCard();
     public CloseCard closeCard = new CloseCard(contactCardFullFrame);
-
 
     // Constructor
     public ContactCardFull() {
@@ -586,7 +586,27 @@ public class ContactCardFull extends ContactCardBase {
 
         });
 
-        deleteCard.addActionListener(ContactCardFull::actionPerformed);
+        deleteCard.addActionListener(e -> {
+            Path delFile = new File("src/main/contacts/" + firstName + "_" + lastName + "_" + currentHashCode + ".xml").toPath();
+            File fileExists = new File(String.valueOf(delFile));
+
+            System.out.println(delFile);
+
+            if (fileExists.exists()) {
+                try {
+                    System.out.println("true");
+                    Files.delete(delFile);
+                } catch (IOException i) {
+                    System.out.println("false");
+                    i.printStackTrace();
+                }
+            }
+
+            ContactList.populateFullContactList();
+            ContactList.addEntriesToContactListJPanel();
+            MainWindow.mainWindowFrame.pack();
+            contactCardFullFrame.dispose();
+        });
 
         closeCard.addActionListener(e -> {
 
@@ -611,19 +631,19 @@ public class ContactCardFull extends ContactCardBase {
                     (int) frameDimension.getWidth(),
                     ((int) ((profilePicture.getIconHeight()) /
                             (profilePicture.getIconWidth() / frameDimension.getWidth()))),
-                    Image.SCALE_SMOOTH);
+                    Image.SCALE_AREA_AVERAGING);
             profilePicture = new ImageIcon(newImageSize);
         } else if ((profilePicture.getIconWidth() / 100) < (profilePicture.getIconHeight() / 165)) {
             Image newImageSize = oldImageSize.getScaledInstance(
                     ((int) ((profilePicture.getIconWidth()) /
                             (profilePicture.getIconHeight() / frameDimension.getHeight()))),
                     (int) frameDimension.getHeight(),
-                    Image.SCALE_SMOOTH);
+                    Image.SCALE_AREA_AVERAGING);
             profilePicture = new ImageIcon(newImageSize);
         } else {
             Image newImageSize = oldImageSize.getScaledInstance(
                     (int) frameDimension.getWidth(), (int) frameDimension.getHeight(),
-                    Image.SCALE_SMOOTH);
+                    Image.SCALE_AREA_AVERAGING);
             profilePicture = new ImageIcon(newImageSize);
         }
         return profilePicture;
@@ -662,25 +682,9 @@ public class ContactCardFull extends ContactCardBase {
 
     public static class MyWindowListener extends WindowAdapter {
         public void windowClosing(WindowEvent e) {
+            ContactList.populateFullContactList();
             ContactList.addEntriesToContactListJPanel();
             MainWindow.mainWindowFrame.pack();
-        }
-    }
-
-    private static void actionPerformed(ActionEvent e) {
-        Path delFile = new File("src/main/contacts/" + firstName + "_" + lastName + "_" + currentHashCode + ".xml").toPath();
-        File fileExists = new File(String.valueOf(delFile));
-
-        System.out.println(delFile);
-
-        if (fileExists.exists()) {
-            try {
-                System.out.println("true");
-                Files.delete(delFile);
-            } catch (IOException i) {
-                System.out.println("false");
-                i.printStackTrace();
-            }
         }
     }
 }

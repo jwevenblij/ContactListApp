@@ -41,6 +41,7 @@ public class DeleteAllCards extends JButton {
             file.delete();
 
         // Redraw the ContactList canvas
+        ContactList.populateFullContactList();
         ContactList.addEntriesToContactListJPanel();
         MainWindow.mainWindowFrame.pack();
     }
